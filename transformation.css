@@ -1,0 +1,209 @@
+:root {
+  --ts-font-primary: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --ts-color-black: #000000;
+  --ts-color-white: #e9e9e9;
+  --ts-color-slider-handle: var(--ts-color-black);
+  --ts-color-slider-line: rgba(0, 0, 0, 0.6);
+  --ts-color-border-subtle: #e0e0e0;
+  --ts-color-label-bg: rgba(0, 0, 0, 0.6);
+  --ts-color-label-text: var(--ts-color-white);
+  --ts-animation-ultra-smooth-curve: cubic-bezier(0.23, 1, 0.32, 1);
+  --ts-animation-ultra-smooth-duration: 1.1s;
+  --ts-animation-snappy: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.ts-reveal-on-scroll {
+  opacity: 0;
+  transition: opacity var(--ts-animation-ultra-smooth-duration)
+      var(--ts-animation-ultra-smooth-curve),
+    transform var(--ts-animation-ultra-smooth-duration)
+      var(--ts-animation-ultra-smooth-curve);
+}
+.ts-reveal-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0) !important;
+}
+.ts-title-reveal {
+  transform: translateY(30px);
+}
+.ts-item-reveal {
+  transform: translateY(50px);
+}
+
+.ts-section {
+  padding: 100px 40px;
+  min-height: 100vh;
+  background-color: var(--ts-color-white);
+  overflow: hidden;
+}
+.ts-container {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+}
+.ts-section-title {
+  font-size: clamp(2.2rem, 5vw, 3.2rem);
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 80px;
+  color: var(--ts-color-black);
+  position: relative;
+  padding-bottom: 15px;
+}
+
+.ts-showcase-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 450px), 1fr));
+  gap: 60px;
+}
+
+.ts-image-comparison-slider {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  cursor: ew-resize;
+  border: 1px solid var(--ts-color-border-subtle);
+  touch-action: pan-y;
+}
+.ts-image-comparison-slider.is-dragging {
+  /* Visual feedback while dragging */
+}
+.ts-image-comparison-slider img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
+.ts-image-comparison-slider .ts-img-after {
+  clip-path: polygon(50% 0, 100% 0, 100% 100%, 50% 100%);
+  z-index: 2;
+}
+.ts-image-comparison-slider .ts-img-before {
+  z-index: 1;
+}
+.ts-image-label {
+  position: absolute;
+  bottom: 10px;
+  padding: 5px 12px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  background-color: var(--ts-color-label-bg);
+  color: var(--ts-color-label-text);
+  border-radius: 4px;
+  z-index: 4;
+  opacity: 0.85;
+  transition: opacity 0.3s var(--ts-animation-ultra-smooth-curve);
+  pointer-events: none;
+}
+.ts-image-comparison-slider:hover .ts-image-label,
+.ts-image-comparison-slider.is-dragging .ts-image-label {
+  opacity: 1;
+} /* Show labels also when dragging */
+.ts-label-before {
+  left: 10px;
+}
+.ts-label-after {
+  right: 10px;
+}
+.ts-slider-handle-container {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 3px;
+  height: 100%;
+  transform: translateX(-50%);
+  z-index: 3;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ts-slider-line {
+  width: 100%;
+  height: 100%;
+  background-color: var(--ts-color-slider-line);
+  position: absolute;
+}
+.ts-slider-handle {
+  width: 40px;
+  height: 40px;
+  background-color: var(--ts-color-white);
+  border: 2px solid var(--ts-color-slider-handle);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s var(--ts-animation-snappy);
+  position: relative;
+}
+.ts-image-comparison-slider:hover .ts-slider-handle,
+.ts-image-comparison-slider.is-dragging .ts-slider-handle {
+  transform: scale(1.1);
+}
+.ts-slider-handle::before,
+.ts-slider-handle::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-style: solid;
+}
+.ts-slider-handle::before {
+  border-width: 6px 8px 6px 0;
+  border-color: transparent var(--ts-color-slider-handle) transparent
+    transparent;
+  left: 8px;
+}
+.ts-slider-handle::after {
+  border-width: 6px 0 6px 8px;
+  border-color: transparent transparent transparent
+    var(--ts-color-slider-handle);
+  right: 8px;
+}
+.ts-showcase-caption {
+  text-align: center;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #555;
+  margin-top: 15px;
+}
+
+@media (max-width: 768px) {
+  .ts-section {
+    padding: 80px 20px;
+  }
+  .ts-section-title {
+    font-size: clamp(1.8rem, 7vw, 2.5rem);
+    margin-bottom: 60px;
+  }
+  .ts-showcase-grid {
+    grid-template-columns: 1fr;
+    gap: 50px;
+  }
+  .ts-slider-handle {
+    width: 36px;
+    height: 36px;
+  }
+  .ts-slider-handle::before {
+    border-width: 5px 7px 5px 0;
+    left: 7px;
+  }
+  .ts-slider-handle::after {
+    border-width: 5px 0 5px 7px;
+    right: 7px;
+  }
+  .ts-image-label {
+    font-size: 0.7rem;
+    padding: 4px 10px;
+  }
+}

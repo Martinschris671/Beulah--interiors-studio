@@ -1,0 +1,283 @@
+:root {
+  --wts-font-primary: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --wts-color-black: #000000;
+  --wts-color-white: #eeeded;
+  --wts-color-text-secondary: #4a4a4a;
+  --wts-color-border: #f3f3f3;
+  --wts-color-input-bg: #f9f9f9;
+  --wts-color-overlay-bg: rgba(0, 0, 0, 0.75);
+
+  /* Ultra Smooth Animation Properties */
+  --animation-ultra-smooth-curve: cubic-bezier(
+    0.23,
+    1,
+    0.32,
+    1
+  ); /* easeOutQuint */
+  --animation-ultra-smooth-duration: 1.1s;
+
+  --wts-animation-springy: cubic-bezier(
+    0.34,
+    1.56,
+    0.64,
+    1
+  ); /* For button interactions */
+}
+
+/* Helper for scroll reveal */
+.wts-reveal-on-scroll {
+  opacity: 0;
+  transition: opacity var(--animation-ultra-smooth-duration)
+      var(--animation-ultra-smooth-curve),
+    transform var(--animation-ultra-smooth-duration)
+      var(--animation-ultra-smooth-curve);
+}
+.wts-reveal-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0) !important;
+}
+.wts-title-reveal {
+  transform: translateY(30px);
+}
+.wts-item-reveal {
+  transform: translateY(40px);
+}
+.wts-form-wrapper-reveal {
+  transform: translateY(30px);
+}
+
+.wts-section {
+  padding: 100px 40px;
+  min-height: 100vh;
+  background-color: var(--wts-color-white);
+  overflow: hidden;
+}
+.wts-container {
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.wts-section-title {
+  font-size: clamp(2.2rem, 5vw, 3.2rem);
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 70px;
+  color: var(--wts-color-black);
+  position: relative;
+  padding-bottom: 15px;
+  /* opacity & transform handled by reveal classes */
+}
+
+.wts-testimonials-list {
+  display: grid;
+  gap: 40px;
+}
+
+.wts-testimonial-item {
+  background-color: var(--wts-color-white);
+  padding: 30px;
+  border: 1px solid var(--wts-color-border);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+  /* opacity & transform handled by reveal classes. Transition is in .wts-reveal-on-scroll > .wts-item-reveal */
+}
+/* .wts-testimonial-item.is-visible already handled by .wts-reveal-on-scroll.is-visible */
+/* Staggering delays for .is-visible items will be handled by JS if needed, or CSS if simple nth-child */
+.wts-testimonial-item.is-visible:nth-child(1) {
+  transition-delay: 0.1s !important;
+} /* Keep !important if overriding base transition delay from reveal class */
+.wts-testimonial-item.is-visible:nth-child(2) {
+  transition-delay: 0.25s !important;
+}
+.wts-testimonial-item.is-visible:nth-child(3) {
+  transition-delay: 0.4s !important;
+}
+
+.wts-testimonial-quote {
+  font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+  font-style: italic;
+  line-height: 1.6;
+  color: var(--wts-color-black);
+  margin-bottom: 20px;
+  position: relative;
+  padding-left: 35px;
+}
+.wts-testimonial-quote::before {
+  content: "“";
+  font-family: Georgia, serif;
+  font-size: 3.5rem;
+  color: var(--wts-color-border);
+  position: absolute;
+  left: -5px;
+  top: -15px;
+  line-height: 1;
+}
+.wts-testimonial-author {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--wts-color-black);
+  text-align: right;
+}
+.wts-testimonial-author span {
+  font-weight: 400;
+  color: var(--wts-color-text-secondary);
+  display: block;
+  font-size: 0.85rem;
+  margin-top: 3px;
+}
+
+.wts-comment-form-wrapper {
+  margin-top: 70px;
+  padding-top: 50px;
+  border-top: 1px solid var(--wts-color-border);
+  /* opacity & transform handled by reveal classes */
+}
+.wts-comment-form-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 25px;
+  text-align: center;
+  color: var(--wts-color-black);
+}
+.wts-comment-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+.wts-form-group {
+  display: flex;
+  flex-direction: column;
+}
+.wts-form-group label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin-bottom: 8px;
+  color: var(--wts-color-text-secondary);
+}
+.wts-form-group input[type="text"],
+.wts-form-group textarea {
+  font-family: var(--wts-font-primary);
+  font-size: 1rem;
+  padding: 12px 15px;
+  border: 1px solid var(--wts-color-border);
+  border-radius: 6px;
+  background-color: var(--wts-color-input-bg);
+  transition: border-color 0.3s, box-shadow 0.3s;
+  outline: none;
+}
+.wts-form-group input[type="text"]:focus,
+.wts-form-group textarea:focus {
+  border-color: var(--wts-color-black);
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+}
+.wts-form-group textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+.wts-submit-btn {
+  font-family: var(--wts-font-primary);
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 12px 25px;
+  background-color: var(--wts-color-black);
+  color: var(--wts-color-white);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s var(--wts-animation-springy);
+  align-self: center;
+  margin-top: 10px;
+}
+.wts-submit-btn:hover {
+  background-color: #333;
+  transform: translateY(-2px);
+}
+.wts-submit-btn:active {
+  transform: translateY(0);
+}
+
+.wts-custom-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--wts-color-overlay-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s var(--animation-ultra-smooth-curve),
+    visibility 0s linear 0.4s;
+}
+.wts-custom-overlay.is-active {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.4s var(--animation-ultra-smooth-curve),
+    visibility 0s linear 0s;
+}
+.wts-overlay-content {
+  background-color: var(--wts-color-white);
+  padding: 40px;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  max-width: 400px;
+  width: 90%;
+  transform: scale(0.95);
+  transition: transform 0.4s var(--wts-animation-springy);
+}
+.wts-custom-overlay.is-active .wts-overlay-content {
+  transform: scale(1);
+}
+.wts-overlay-message {
+  font-size: 1.2rem;
+  margin-bottom: 25px;
+  color: var(--wts-color-black);
+  line-height: 1.5;
+}
+.wts-overlay-close-btn {
+  font-family: var(--wts-font-primary);
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 10px 20px;
+  background-color: var(--wts-color-black);
+  color: var(--wts-color-white);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+.wts-overlay-close-btn:hover {
+  background-color: #333;
+}
+
+@media (max-width: 768px) {
+  .wts-section {
+    padding: 80px 20px;
+  }
+  .wts-section-title {
+    font-size: clamp(1.8rem, 7vw, 2.5rem);
+    margin-bottom: 50px;
+  }
+  .wts-testimonial-item {
+    padding: 25px;
+  }
+  .wts-testimonial-quote {
+    font-size: clamp(1rem, 3vw, 1.15rem);
+    padding-left: 30px;
+  }
+  .wts-testimonial-quote::before {
+    font-size: 3rem;
+    left: -2px;
+    top: -10px;
+  }
+  .wts-comment-form-wrapper {
+    margin-top: 50px;
+    padding-top: 30px;
+  }
+}

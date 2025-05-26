@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Loading Experience...</title>
+    <!-- No JS redirect in meta if primary is JS; JS is cleaner for this specific case -->
+    <style>
+      :root {
+        --preloader-bg: #f8f8f8; /* Very light grey - premium & contrasts with black UI */
+        --spinner-track-color: rgba(0, 0, 0, 0.1); /* Very subtle dark track */
+        --spinner-active-color: #0d0d0d; /* Deep, almost black for the active spinner */
+        /* OR if you prefer a white spinner on light bg: */
+        /* --spinner-track-color: rgba(255, 255, 255, 0.2); */
+        /* --spinner-active-color: #FFFFFF; */
+
+        --spinner-size: 55px;
+        --spinner-border-width: 5px;
+        --animation-duration: 1s;
+        --animation-timing: linear; /* For a constant, smooth spin */
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        background-color: var(--preloader-bg);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        overflow: hidden;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Helvetica, Arial, sans-serif;
+        opacity: 1;
+        transition: opacity 0.75s ease-out; /* For potential fade-out if staying on same page */
+      }
+
+      /* If this preloader page itself fades out before navigating */
+      body.is-leaving {
+        opacity: 0;
+      }
+
+      .spinner-container {
+        text-align: center;
+      }
+
+      .spinner {
+        width: var(--spinner-size);
+        height: var(--spinner-size);
+        border: var(--spinner-border-width) solid var(--spinner-track-color);
+        border-top-color: var(--spinner-active-color);
+        border-radius: 50%;
+        animation: spin var(--animation-duration) var(--animation-timing)
+          infinite;
+
+        /* Subtle shadow for a slightly lifted, premium feel */
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03), 0 0 1px rgba(0, 0, 0, 0.05);
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* Optional: Subtle loading text - keep it very minimal if used */
+      .loading-text-minimal {
+        margin-top: 25px;
+        font-size: 0.8rem;
+        font-weight: 500;
+        color: rgba(0, 0, 0, 0.4); /* Soft, desaturated text */
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        opacity: 0;
+        animation: fadeInTextMinimal 1.2s 0.5s ease-out forwards;
+      }
+
+      @keyframes fadeInTextMinimal {
+        to {
+          opacity: 1;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="spinner-container">
+      <div class="spinner"></div>
+      <!-- Uncomment if you want minimal text -->
+      <!-- <p class="loading-text-minimal">Loading</p> -->
+    </div>
+
+    <script>
+      const navigationTarget = "home.html"; // CHANGE THIS to your target HTML page
+      const preloaderDuration = 6000; // 6 seconds
+
+      window.addEventListener("load", () => {
+        // Ensures preloader assets (if any) are loaded
+        setTimeout(() => {
+          // Optional: If you want this page to fade out before navigating
+          // document.body.classList.add('is-leaving');
+          // setTimeout(() => {
+          //     window.location.href = navigationTarget;
+          // }, 750); // Match this to body transition duration
+
+          // Direct navigation:
+          window.location.href = navigationTarget;
+        }, preloaderDuration);
+      });
+    </script>
+  </body>
+</html>

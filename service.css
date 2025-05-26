@@ -1,0 +1,240 @@
+:root {
+  --is-font-primary: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --is-color-background: #ffffff;
+  --is-color-text-primary: #000000;
+  --is-color-text-secondary: #333333;
+  --is-color-text-inactive: #a0a0a0;
+  --is-color-accent-line: #000000;
+  --is-color-hover-bg-subtle: #f8f8f8;
+  --is-shape-color-1: rgba(0, 0, 0, 0.08);
+  --is-shape-color-2: rgba(0, 0, 0, 0.05);
+  --is-shape-color-3: rgba(0, 0, 0, 0.1);
+
+  /* Ultra Smooth Animation Properties */
+  --animation-ultra-smooth-curve: cubic-bezier(
+    0.23,
+    1,
+    0.32,
+    1
+  ); /* easeOutQuint */
+  --animation-ultra-smooth-duration: 1s;
+  --animation-reveal-stagger-delay: 0.1s; /* Base stagger for service titles */
+}
+
+/* Helper for scroll reveal */
+.is-reveal-on-scroll {
+  opacity: 0;
+  transition: opacity var(--animation-ultra-smooth-duration)
+      var(--animation-ultra-smooth-curve),
+    transform var(--animation-ultra-smooth-duration)
+      var(--animation-ultra-smooth-curve);
+}
+.is-reveal-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0) translateX(0) !important; /* Ensure both transforms are reset */
+}
+.is-title-reveal {
+  transform: translateY(30px);
+}
+.is-list-item-reveal {
+  transform: translateX(-30px);
+} /* Slide from left */
+
+.is-section {
+  padding: 100px 40px;
+  background-color: var(--is-color-background);
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+}
+.is-container {
+  max-width: 900px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.is-section-title {
+  font-size: clamp(2.2rem, 5vw, 3.2rem);
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 70px;
+  color: var(--is-color-text-primary);
+  position: relative;
+  padding-bottom: 15px;
+  /* opacity & transform handled by reveal classes */
+}
+
+.is-services-interactive-wrapper {
+  display: flex;
+  gap: 50px;
+}
+.is-services-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex: 0 0 300px;
+}
+
+.is-service-title-item {
+  font-size: clamp(1.2rem, 2.8vw, 1.6rem);
+  font-weight: 500;
+  padding: 18px 15px;
+  color: var(--is-color-text-inactive);
+  border-bottom: 1px solid #f0f0f0;
+  cursor: pointer;
+  position: relative;
+  /* opacity & transform handled by reveal classes */
+  /* Direct transitions for hover and active states */
+  transition: color 0.3s var(--animation-ultra-smooth-curve),
+    background-color 0.3s var(--animation-ultra-smooth-curve);
+}
+.is-service-title-item:first-child {
+  border-top: 1px solid #f0f0f0;
+}
+.is-service-title-item:hover {
+  background-color: var(--is-color-hover-bg-subtle);
+  color: var(--is-color-text-primary);
+}
+.is-service-title-item.is-active {
+  color: var(--is-color-text-primary);
+  font-weight: 600;
+  background-color: var(--is-color-hover-bg-subtle);
+}
+.is-service-title-item.is-active::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background-color: var(--is-color-accent-line);
+  animation: is-drawLineIn 0.4s var(--animation-ultra-smooth-curve) forwards;
+}
+@keyframes is-drawLineIn {
+  from {
+    height: 0;
+    top: 50%;
+  }
+  to {
+    height: 100%;
+    top: 0;
+  }
+}
+
+/* --- UPDATED DETAIL PANEL --- */
+.is-service-detail-panel {
+  flex: 1 1 auto;
+  position: relative;
+  aspect-ratio: 16 / 10;
+  max-height: 450px;
+  display: flex; /* To center content if it's smaller than panel */
+  flex-direction: column; /* Although content will be absolute */
+  justify-content: center; /* Center vertically */
+  align-items: center; /* Center horizontally */
+  padding: 0; /* Remove padding, content will handle its own if needed */
+  background: linear-gradient(135deg, #ffffff, #f8f8f8);
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
+  perspective: 1000px;
+}
+
+#isServiceDetailCanvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.8s var(--animation-ultra-smooth-curve) 0.1s; /* Slight delay for content fade */
+}
+#isServiceDetailCanvas.is-active {
+  opacity: 1;
+}
+
+.is-service-detail-content {
+  position: absolute; /* Take up full space of parent */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex; /* For centering text content */
+  align-items: center; /* Vertically center text */
+  justify-content: center; /* Horizontally center text */
+  padding: 30px 40px; /* Padding for the text itself */
+  z-index: 2;
+  opacity: 0;
+  transform: translateY(15px);
+  transition: opacity 0.6s var(--animation-ultra-smooth-curve) 0.2s,
+    transform 0.6s var(--animation-ultra-smooth-curve) 0.2s;
+  overflow-y: hidden; /* CRITICAL: Prevent scrolling of text */
+  text-align: center; /* Center align text within this box */
+}
+.is-service-detail-content.is-active {
+  opacity: 1;
+  transform: translateY(0);
+}
+.is-service-detail-content h3 {
+  display: none;
+} /* Title is in the list */
+.is-service-detail-content p {
+  font-size: clamp(0.95rem, 1.8vw, 1.05rem);
+  line-height: 1.7;
+  color: var(--is-color-text-secondary);
+  margin: 0;
+  max-width: 90%; /* Prevent text from touching edges */
+}
+/* --- END OF UPDATED DETAIL PANEL --- */
+
+@media (max-width: 768px) {
+  .is-section {
+    padding: 80px 20px;
+  }
+  .is-section-title {
+    font-size: clamp(1.8rem, 7vw, 2.5rem);
+    margin-bottom: 50px;
+  }
+  .is-services-interactive-wrapper {
+    flex-direction: column;
+    gap: 30px;
+  }
+  .is-services-list {
+    flex-basis: auto;
+    max-width: 100%;
+  }
+  .is-service-title-item {
+    text-align: center;
+    font-size: clamp(1.1rem, 4vw, 1.5rem);
+    padding: 18px 10px;
+  }
+  .is-service-title-item.is-active::before {
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 2.5px;
+    top: auto;
+    bottom: 0;
+    animation: is-drawMobileLineIn 0.4s var(--animation-ultra-smooth-curve)
+      forwards;
+  }
+  @keyframes is-drawMobileLineIn {
+    from {
+      width: 0;
+    }
+    to {
+      width: 50px;
+    }
+  }
+  .is-service-detail-panel {
+    aspect-ratio: 4 / 3;
+    max-height: 350px;
+  }
+  .is-service-detail-content {
+    padding: 25px;
+  }
+  .is-service-detail-content p {
+    font-size: clamp(0.9rem, 2.5vw, 1rem);
+  }
+}

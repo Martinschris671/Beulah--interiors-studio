@@ -1,0 +1,1205 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Interior Portfolio - Beulahé interiors studio ltd</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="case.css" />
+    <link rel="stylesheet" href="hero.css" />
+    <link rel="stylesheet" href="cookie.css" />
+    <link rel="stylesheet" href="footer.css" />
+    <link rel="stylesheet" href="process.css" />
+    <link rel="stylesheet" href="bio.css" />
+    <link rel="stylesheet" href="service.css" />
+    <link rel="stylesheet" href="transformation.css" />
+    <link rel="stylesheet" href="work.css" />
+    <link rel="stylesheet" href="testimonials.css" />
+    <link rel="stylesheet" href="contact.css" />
+    <style>
+      :root {
+        /* Monochromatic Black & White Theme (Inspired by Apple-like code) */
+        --background-color: #f5f5f7; /* Light grey */
+        --text-color-primary: #1d1d1f; /* Apple's dark grey/black */
+        --text-color-secondary: #555555; /* Softer grey for secondary text like year */
+        --line-color: #333333; /* Dark grey for lines */
+
+        --nav-text-color: #000000; /* Black for nav */
+        --nav-active-line-color: #000000;
+        --nav-bg-color: rgba(
+          245,
+          245,
+          247,
+          0.9
+        ); /* Based on bg, slightly transparent for blur */
+        --nav-height-desktop: 70px;
+        --nav-height-mobile: 60px;
+
+        --font-primary: "Montserrat", "Helvetica Neue", Helvetica, Arial,
+          sans-serif;
+
+        /* "Perfected" Animation Timings & Easing (Our Design) */
+        --duration-primary-reveal: 1.4s; /* Side panels */
+        --duration-secondary-reveal: 1s; /* Hero content elements */
+        --duration-tertiary-reveal: 0.7s; /* Nav elements */
+        --duration-text-element: 0.8s;
+
+        --easing-smooth-reveal: cubic-bezier(0.23, 1, 0.32, 1);
+        --easing-ui-element: cubic-bezier(0.4, 0, 0.2, 1);
+        --easing-text-reveal: cubic-bezier(0.215, 0.61, 0.355, 1);
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html {
+        font-size: 16px;
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family: var(--font-primary);
+        background-color: var(--background-color);
+        color: var(--text-color-primary);
+        line-height: 1.6;
+        overflow-x: hidden;
+        min-height: 100vh;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+      body.no-scroll {
+        overflow: hidden;
+      }
+
+      /* Mobile Navigation Panel (UNCHANGED from previous perfected state) */
+      #navLinksMobile {
+        list-style: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 70%;
+        max-width: 320px;
+        height: 100vh;
+        background-color: var(--background-color);
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding-top: var(--nav-height-mobile);
+        z-index: 999;
+        transform: translateX(-100%);
+        visibility: hidden;
+        opacity: 0;
+        transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1),
+          opacity 0.5s ease, visibility 0s 0.5s;
+      }
+      #navLinksMobile.active {
+        transform: translateX(0);
+        visibility: visible;
+        opacity: 1;
+        transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1),
+          opacity 0.5s ease, visibility 0s 0s;
+      }
+      #navLinksMobile li {
+        margin: 20px 0;
+        opacity: 1;
+        transform: none;
+        animation: none;
+      }
+      #navLinksMobile a {
+        text-decoration: none;
+        color: var(--nav-text-color);
+        font-size: 1.1rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        position: relative;
+        padding-bottom: 8px;
+        transition: color 0.3s ease;
+      }
+      #navLinksMobile a::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-color: var(--nav-active-line-color);
+        transition: width 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+      }
+      #navLinksMobile a:hover::after,
+      #navLinksMobile a.active::after {
+        width: 100%;
+      }
+      #navLinksMobile a.active::after {
+        width: 30%;
+      }
+      .bio-name {
+        text-transform: uppercase;
+      }
+      /* ---- Media Queries ---- */
+      @media (max-width: 768px) {
+        /* Your mobile breakpoint */
+        #navLinksDesktop {
+          display: none;
+        }
+        .hamburger-menu {
+          display: block;
+        }
+        .main-nav:not(:has(.nav-logo)) {
+          justify-content: flex-end;
+        }
+        .main-nav:has(.nav-logo) {
+          justify-content: space-between;
+        }
+        .hero-section {
+          flex-direction: column;
+        }
+        .image-panel.left {
+          width: 100%;
+          height: 35vh;
+          order: -1;
+          animation: revealPanelUp var(--duration-primary-reveal)
+            var(--easing-smooth-reveal) 0.1s forwards;
+        }
+        .image-panel.right {
+          display: none;
+        }
+        @keyframes revealPanelUp {
+          0% {
+            opacity: 0;
+            transform: translateY(-50%);
+          }
+          100% {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        .central-content-wrapper {
+          padding: 30px 15px;
+          min-height: 65vh; /* background-color: var(--background-color); backdrop-filter: none; */
+        }
+        .hero-main-title {
+          font-size: clamp(2rem, 10vw, 3rem);
+        } /* Your mobile title size */
+        @keyframes drawLineHero {
+          100% {
+            width: 40%;
+            opacity: 1;
+          }
+        } /* Your mobile line width */
+      }
+      @media (min-width: 769px) {
+        /* Desktop view */
+        .hero-section {
+          flex-direction: row;
+          align-items: stretch;
+        } /* Our desktop layout */
+        .image-panel {
+          display: block;
+          width: 30vw;
+        } /* Our desktop panel width */
+        #navLinksDesktop {
+          display: flex;
+        }
+        .hamburger-menu {
+          display: none;
+        }
+        .main-nav {
+          min-height: var(--nav-height-desktop);
+        }
+      }
+      @media (min-width: 1200px) {
+        .image-panel {
+          width: 32vw;
+        }
+      }
+
+      /* Placeholder Sections (Styling from your example) */
+      .placeholder-section {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 3rem;
+        font-weight: bold;
+        padding-top: var(--nav-height);
+        border-bottom: 1px solid #ddd;
+      }
+      #bio {
+        background-color: #e0e0e0;
+      }
+      #services {
+        background-color: #e7e7e7;
+      }
+      #work {
+        background-color: #f1f1f1;
+      }
+      #contact {
+        background-color: #e6e6e6;
+      }
+      section[id] {
+        scroll-margin-top: var(--nav-height-mobile);
+      }
+      @media (min-width: 992px) {
+        section[id] {
+          scroll-margin-top: var(--nav-height-desktop);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="main-nav" id="mainNav">
+      <a href="#hero" class="nav-logo">logo</a>
+      <ul id="navLinksDesktop">
+        <li><a href="#bio" class="nav-link active">Bio</a></li>
+        <li><a href="#services" class="nav-link">Services</a></li>
+        <li><a href="#work" class="nav-link">Work</a></li>
+        <li><a href="#contact" class="nav-link">Contact</a></li>
+      </ul>
+      <div class="hamburger-menu" id="hamburgerMenu">
+        <span class="bar"></span><span class="bar"></span
+        ><span class="bar"></span>
+      </div>
+    </nav>
+    <ul id="navLinksMobile">
+      <li><a href="#bio" class="nav-link active">Bio</a></li>
+      <li><a href="#services" class="nav-link">Services</a></li>
+      <li><a href="#work" class="nav-link">Work</a></li>
+      <li><a href="#contact" class="nav-link">Contact</a></li>
+    </ul>
+
+    <section class="um-hero-section" id="hero">
+      <h1 class="um-hero-title">
+        <span class="um-hero-title-line">Interior</span>
+        <span class="um-hero-title-line">Portfolio</span>
+      </h1>
+      <div class="um-hero-line-accent"></div>
+      <p class="um-hero-byline">Beulahé interiors studio</p>
+    </section>
+
+    <section class="fw-section" id="bio">
+      <div class="fw-container">
+        <!-- Added helper reveal classes and data-animation attribute -->
+        <div
+          class="fw-text-content fw-reveal-on-scroll fw-text-content-reveal"
+          data-animation-class="animate"
+        >
+          <h1 class="fw-heading">
+            <span class="fw-heading-accent">Welcome</span> to
+            <span class="fw-heading-portfolio-line">My Portfolio</span>
+          </h1>
+          <p class="fw-description">
+            A curated showcase of visionary interior designs by
+            <strong class="bio-name">Beulahé interiors studio ltd</strong>.
+            Explore spaces where meticulous craftsmanship and functional
+            elegance converge to redefine modern living.
+          </p>
+        </div>
+        <div
+          class="fw-image-content fw-reveal-on-scroll fw-image-content-reveal"
+          data-animation-class="animate"
+        >
+          <div class="fw-image-frame-background"></div>
+          <div class="fw-image-wrapper">
+            <img
+              src="images/about.webp"
+              alt="Modern interior design living room"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="icp-section">
+      <div class="icp-container">
+        <h2
+          class="icp-section-title icp-reveal-on-scroll icp-title-reveal"
+          id="creativeProcessTitle"
+          data-reveal-delay="0"
+        >
+          Our Creative Process
+        </h2>
+
+        <div class="icp-process-interactive-wrapper">
+          <div class="icp-morphing-background" id="morphingBg"></div>
+
+          <ul class="icp-stepper">
+            <li
+              class="icp-step-button icp-reveal-on-scroll icp-stepper-item-reveal"
+              data-step="1"
+              data-reveal-delay="100"
+            >
+              <span class="icp-step-number">01</span>
+              <span class="icp-step-title-text">Discovery & Vision</span>
+            </li>
+            <li
+              class="icp-step-button icp-reveal-on-scroll icp-stepper-item-reveal"
+              data-step="2"
+              data-reveal-delay="200"
+            >
+              <span class="icp-step-number">02</span>
+              <span class="icp-step-title-text">Conceptual Design</span>
+            </li>
+            <li
+              class="icp-step-button icp-reveal-on-scroll icp-stepper-item-reveal"
+              data-step="3"
+              data-reveal-delay="300"
+            >
+              <span class="icp-step-number">03</span>
+              <span class="icp-step-title-text">Precision Execution</span>
+            </li>
+            <li
+              class="icp-step-button icp-reveal-on-scroll icp-stepper-item-reveal"
+              data-step="4"
+              data-reveal-delay="400"
+            >
+              <span class="icp-step-number">04</span>
+              <span class="icp-step-title-text">Curated Finalization</span>
+            </li>
+          </ul>
+
+          <div class="icp-content-panel">
+            <div class="icp-step-detail" data-step-content="1">
+              <div class="icp-detail-description">
+                <p>
+                  We initiate by immersing ourselves in your unique aspirations,
+                  lifestyle, and functional desires. This profound understanding
+                  forms the bedrock of a design narrative that is exclusively
+                  yours, ensuring every element aligns with your ultimate
+                  vision.
+                </p>
+              </div>
+            </div>
+            <div class="icp-step-detail" data-step-content="2">
+              <div class="icp-detail-description">
+                <p>
+                  Ideas are meticulously translated into compelling visual
+                  concepts. We craft detailed spatial plans, immersive 3D
+                  renderings, and curate a palette of refined materials and
+                  finishes that define sophistication and tactile elegance for
+                  the proposed space.
+                </p>
+              </div>
+            </div>
+            <div class="icp-step-detail" data-step-content="3">
+              <div class="icp-detail-description">
+                <p>
+                  Our expert team orchestrates every facet of the project, from
+                  sourcing bespoke elements to liaising with master artisans. We
+                  ensure impeccable execution and adherence to unparalleled
+                  quality standards through diligent project management.
+                </p>
+              </div>
+            </div>
+            <div class="icp-step-detail" data-step-content="4">
+              <div class="icp-detail-description">
+                <p>
+                  The culmination involves the artful arrangement of final
+                  details. Spaces are thoughtfully styled with select
+                  accessories and art, leading to the grand unveiling of your
+                  exquisitely transformed environment, ready for life's moments.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="is-section" id="services">
+      <div class="is-container">
+        <h2
+          class="is-section-title is-reveal-on-scroll is-title-reveal"
+          id="interactiveServicesTitle"
+          data-reveal-delay="0"
+        >
+          Our Approach to Design
+        </h2>
+
+        <div class="is-services-interactive-wrapper">
+          <ul class="is-services-list">
+            <li
+              class="is-service-title-item is-reveal-on-scroll is-list-item-reveal"
+              data-service="residential"
+              data-color-accent="rgba(0,0,0,0.1)"
+              data-reveal-delay="100"
+            >
+              Luxury Residential Design
+            </li>
+            <li
+              class="is-service-title-item is-reveal-on-scroll is-list-item-reveal"
+              data-service="commercial"
+              data-color-accent="rgba(50,50,50,0.1)"
+              data-reveal-delay="200"
+            >
+              Bespoke Commercial Spaces
+            </li>
+            <li
+              class="is-service-title-item is-reveal-on-scroll is-list-item-reveal"
+              data-service="styling"
+              data-color-accent="rgba(100,100,100,0.08)"
+              data-reveal-delay="300"
+            >
+              Curated Interior Styling
+            </li>
+            <li
+              class="is-service-title-item is-reveal-on-scroll is-list-item-reveal"
+              data-service="consultation"
+              data-color-accent="rgba(0,0,0,0.06)"
+              data-reveal-delay="400"
+            >
+              Expert Design Consultation
+            </li>
+          </ul>
+
+          <div class="is-service-detail-panel" id="serviceDetailPanel">
+            <canvas id="isServiceDetailCanvas"></canvas>
+            <div class="is-service-detail-content" data-service="residential">
+              <p>
+                We craft exceptionally personal living environments that merge
+                timeless elegance with modern sophistication. Each space is a
+                testament to bespoke luxury, tailored to reflect your unique
+                narrative and lifestyle aspirations.
+              </p>
+            </div>
+            <div class="is-service-detail-content" data-service="commercial">
+              <p>
+                Transforming commercial ventures into iconic destinations. Our
+                designs strategically enhance brand identity and user
+                experience, creating inspiring environments for hospitality,
+                retail, and corporate sectors.
+              </p>
+            </div>
+            <div class="is-service-detail-content" data-service="styling">
+              <p>
+                The art of completion. Our styling service adds the defining
+                layers of personality and refinement to your space, through
+                thoughtfully selected art, accessories, and textiles that
+                harmonize to create an atmosphere of curated sophistication.
+              </p>
+            </div>
+            <div class="is-service-detail-content" data-service="consultation">
+              <p>
+                Providing strategic insights and creative direction. Our
+                consultations empower you with expert guidance on spatial
+                planning, material selection, and aesthetic development,
+                ensuring your vision is realized with clarity and precision.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="ts-section">
+      <div class="ts-container">
+        <h2
+          class="ts-section-title ts-reveal-on-scroll ts-title-reveal"
+          id="transformationTitle"
+          data-reveal-delay="0"
+        >
+          Transformations showcase
+        </h2>
+        <div class="ts-showcase-grid">
+          <div
+            class="ts-showcase-item ts-reveal-on-scroll ts-item-reveal"
+            data-reveal-delay="100"
+          >
+            <div class="ts-image-comparison-slider">
+              <img
+                src="images/livingbefore.webp"
+                alt="Before"
+                class="ts-img-before"
+              />
+              <img
+                src="images/livingafter.webp"
+                alt="After"
+                class="ts-img-after"
+              />
+              <div class="ts-image-label ts-label-before">Before</div>
+              <div class="ts-image-label ts-label-after">After</div>
+              <div class="ts-slider-handle-container">
+                <div class="ts-slider-line"></div>
+                <div class="ts-slider-handle"></div>
+              </div>
+            </div>
+            <p class="ts-showcase-caption">Urban Oasis Living Room</p>
+          </div>
+          <div
+            class="ts-showcase-item ts-reveal-on-scroll ts-item-reveal"
+            data-reveal-delay="200"
+          >
+            <div class="ts-image-comparison-slider">
+              <img
+                src="images/Kitchenbefore.webp"
+                alt="Before"
+                class="ts-img-before"
+              />
+              <img
+                src="images/Kitchenafter.webp"
+                alt="After"
+                class="ts-img-after"
+              />
+              <div class="ts-image-label ts-label-before">Before</div>
+              <div class="ts-image-label ts-label-after">After</div>
+              <div class="ts-slider-handle-container">
+                <div class="ts-slider-line"></div>
+                <div class="ts-slider-handle"></div>
+              </div>
+            </div>
+            <p class="ts-showcase-caption">Gourmet Chef's Kitchen</p>
+          </div>
+          <div
+            class="ts-showcase-item ts-reveal-on-scroll ts-item-reveal"
+            data-reveal-delay="300"
+          >
+            <div class="ts-image-comparison-slider">
+              <img
+                src="images/bedbefore.webp"
+                alt="Before"
+                class="ts-img-before"
+              />
+              <img
+                src="images/bedafter.webp"
+                alt="After"
+                class="ts-img-after"
+              />
+              <div class="ts-image-label ts-label-before">Before</div>
+              <div class="ts-image-label ts-label-after">After</div>
+              <div class="ts-slider-handle-container">
+                <div class="ts-slider-line"></div>
+                <div class="ts-slider-handle"></div>
+              </div>
+            </div>
+            <p class="ts-showcase-caption">Serene Master Suite</p>
+          </div>
+          <div
+            class="ts-showcase-item ts-reveal-on-scroll ts-item-reveal"
+            data-reveal-delay="400"
+          >
+            <div class="ts-image-comparison-slider">
+              <img
+                src="images/bathroombefore.webp"
+                alt="Before"
+                class="ts-img-before"
+              />
+              <img
+                src="images/bathroomafter.webp"
+                alt="After"
+                class="ts-img-after"
+              />
+              <div class="ts-image-label ts-label-before">Before</div>
+              <div class="ts-image-label ts-label-after">After</div>
+              <div class="ts-slider-handle-container">
+                <div class="ts-slider-line"></div>
+                <div class="ts-slider-handle"></div>
+              </div>
+            </div>
+            <p class="ts-showcase-caption">Spa-Inspired Bathroom</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="po-section">
+      <div class="po-container">
+        <h2 class="po-section-title" id="portfolioOverviewTitle">
+          Featured Work
+        </h2>
+
+        <div class="po-portfolio-grid">
+          <!-- Project Item 1 -->
+          <div class="po-project-item">
+            <div class="po-project-image-wrapper">
+              <img src="assets/images-34.jpeg" alt="Project Serene Sanctuary" />
+            </div>
+            <div class="po-project-content">
+              <h3 class="po-project-title">The Serene Sanctuary</h3>
+              <p class="po-project-tagline">Private Villa, Ikoyi, Lagos</p>
+              <a href="project1.html" class="po-view-case-study-btn"
+                >View Case Study</a
+              >
+            </div>
+          </div>
+
+          <!-- Project Item 2 -->
+          <div class="po-project-item">
+            <div class="po-project-image-wrapper">
+              <img src="assets/images-35.jpeg" alt="Project Gourmet Kitchen" />
+            </div>
+            <div class="po-project-content">
+              <h3 class="po-project-title">Gourmet Chef's Kitchen</h3>
+              <p class="po-project-tagline">Modern Apartment Renovation</p>
+              <a href="#project-detail-kitchen" class="po-view-case-study-btn"
+                >View Case Study</a
+              >
+            </div>
+          </div>
+
+          <!-- Project Item 3 -->
+          <div class="po-project-item">
+            <div class="po-project-image-wrapper">
+              <img src="assets/images-36.jpeg" alt="Project Urban Loft" />
+            </div>
+            <div class="po-project-content">
+              <h3 class="po-project-title">Urban Loft Conversion</h3>
+              <p class="po-project-tagline">Industrial Space Reimagined</p>
+              <a href="#project-detail-loft" class="po-view-case-study-btn"
+                >View Case Study</a
+              >
+            </div>
+          </div>
+
+          <!-- Project Item 4 -->
+          <div class="po-project-item">
+            <div class="po-project-image-wrapper">
+              <img
+                src="assets/images-37.jpeg"
+                alt="Project Minimalist Retreat"
+              />
+            </div>
+            <div class="po-project-content">
+              <h3 class="po-project-title">Minimalist Retreat</h3>
+              <p class="po-project-tagline">Lakeside Cabin Design</p>
+              <a href="#project-detail-retreat" class="po-view-case-study-btn"
+                >View Case Study</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="csw-section">
+      <div class="csw-container">
+        <div
+          class="csw-section-title-header csw-reveal-on-scroll csw-header-reveal"
+          id="workSectionHeader"
+          data-reveal-delay="0"
+        >
+          <h2 class="csw-section-title">Design Styles Explored</h2>
+          <p class="csw-section-intro">
+            Discover the distinct aesthetic approaches that define our
+            portfolio. Each style is a testament to tailored design, meticulous
+            craftsmanship, and a commitment to creating uniquely inspiring
+            environments.
+          </p>
+        </div>
+
+        <div class="csw-interactive-showcase">
+          <ul
+            class="csw-styles-navigation csw-reveal-on-scroll csw-nav-list-reveal"
+            id="stylesNavigation"
+            data-reveal-delay="150"
+          >
+            <li class="csw-nav-item" data-style="minimalist">Minimalist</li>
+            <li class="csw-nav-item" data-style="elegant">Elegant</li>
+            <li class="csw-nav-item" data-style="classy">Classy</li>
+            <li class="csw-nav-item" data-style="modern">Modern</li>
+            <li class="csw-nav-item" data-style="scandinavian">Scandinavian</li>
+          </ul>
+
+          <div
+            class="csw-display-area csw-reveal-on-scroll csw-display-area-reveal"
+            id="styleDisplayArea"
+            data-reveal-delay="300"
+          >
+            <div class="csw-text-content">
+              <h3
+                class="csw-style-title-display"
+                id="cswStyleTitleDisplay"
+              ></h3>
+              <p
+                class="csw-style-description-display"
+                id="cswStyleDescriptionDisplay"
+              ></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="wts-section">
+      <div class="wts-container">
+        <h2
+          class="wts-section-title wts-reveal-on-scroll wts-title-reveal"
+          id="testimonialsTitle"
+          data-reveal-delay="0"
+        >
+          What They Say
+        </h2>
+
+        <div class="wts-testimonials-list" id="testimonialsList">
+          <div
+            class="wts-testimonial-item wts-reveal-on-scroll wts-item-reveal"
+            data-reveal-delay="100"
+          >
+            <!-- data-reveal-delay for JS staggering -->
+            <blockquote class="wts-testimonial-quote">
+              Working with Beulahé interiors studio was an absolute dream. Their
+              vision transformed our space beyond our wildest expectations.
+              Every detail was considered, resulting in a home that is both
+              stunningly beautiful and perfectly functional.
+            </blockquote>
+            <p class="wts-testimonial-author">
+              Adebayo Philips <span>Homeowner, Lagos</span>
+            </p>
+          </div>
+          <div
+            class="wts-testimonial-item wts-reveal-on-scroll wts-item-reveal"
+            data-reveal-delay="250"
+          >
+            <blockquote class="wts-testimonial-quote">
+              The level of professionalism and creativity is unmatched. Our
+              commercial space now reflects our brand perfectly and has
+              significantly enhanced our client experience. Truly a high-end
+              service from start to finish.
+            </blockquote>
+            <p class="wts-testimonial-author">
+              Chidinma Eze <span>CEO, Tech Innovate Ltd.</span>
+            </p>
+          </div>
+          <div
+            class="wts-testimonial-item wts-reveal-on-scroll wts-item-reveal"
+            data-reveal-delay="400"
+          >
+            <blockquote class="wts-testimonial-quote">
+              From concept to completion, the process was seamless. Beulahé
+              interiors studio team listened intently and delivered a space that
+              is not only aesthetically stunning but also incredibly livable.
+              Highly recommended!
+            </blockquote>
+            <p class="wts-testimonial-author">
+              Fatima Aliyu <span>Art Gallery Owner</span>
+            </p>
+          </div>
+        </div>
+
+        <div
+          class="wts-comment-form-wrapper wts-reveal-on-scroll wts-form-wrapper-reveal"
+          id="commentFormWrapper"
+          data-reveal-delay="500"
+        >
+          <h3 class="wts-comment-form-title">Share Your Experience</h3>
+          <form class="wts-comment-form" id="commentForm">
+            <div class="wts-form-group">
+              <label for="wtsName">Your Name</label>
+              <input type="text" id="wtsName" name="wtsName" required />
+            </div>
+            <div class="wts-form-group">
+              <label for="wtsLocation">Your Location/Company (Optional)</label>
+              <input type="text" id="wtsLocation" name="wtsLocation" />
+            </div>
+            <div class="wts-form-group">
+              <label for="wtsComment">Your Thoughts</label>
+              <textarea
+                id="wtsComment"
+                name="wtsComment"
+                rows="5"
+                required
+              ></textarea>
+            </div>
+            <button type="submit" class="wts-submit-btn">Submit Review</button>
+          </form>
+        </div>
+      </div>
+    </section>
+    <div class="wts-custom-overlay" id="wtsCustomOverlay">
+      <div class="wts-overlay-content">
+        <p class="wts-overlay-message" id="wtsOverlayMessageText">
+          Message goes here.
+        </p>
+        <button class="wts-overlay-close-btn" id="wtsOverlayClose">OK</button>
+      </div>
+    </div>
+    <section class="cs-section" id="contact">
+      <div class="cs-container scroll-reveal">
+        <!-- scroll-reveal class for JS -->
+        <h2 class="cs-section-title">Get In Touch</h2>
+        <p class="cs-section-subtitle">
+          Have a project in mind or just want to say hello? I'd love to hear
+          from you. Fill out the form below, and I'll get back to you as soon as
+          possible.
+        </p>
+
+        <form class="cs-contact-form" id="contactForm" novalidate>
+          <div class="cs-form-group">
+            <label for="contactName">Full Name</label>
+            <input
+              type="text"
+              id="contactName"
+              name="contactName"
+              placeholder="e.g., Ada Lovelace"
+              required
+            />
+            <span class="form-error-message-unique"></span>
+          </div>
+          <div class="cs-form-group">
+            <label for="contactEmail">Email Address</label>
+            <input
+              type="email"
+              id="contactEmail"
+              name="contactEmail"
+              placeholder="e.g., ada.lovelace@example.com"
+              required
+            />
+            <span class="form-error-message-unique"></span>
+          </div>
+          <div class="cs-form-group select-wrapper-unique">
+            <label for="contactService">Service of Interest</label>
+            <select id="contactService" name="contactService" required>
+              <option value="" disabled selected>Select a service...</option>
+              <option value="Residential Design">
+                Luxury Residential Design
+              </option>
+              <option value="Furniture Design">
+                Bespoke Furniture & Millwork
+              </option>
+              <option value="Interior Styling">Curated Interior Styling</option>
+              <option value="Commercial Design">Commercial Space Design</option>
+              <option value="Consultation">Design Consultation</option>
+              <option value="Other">Other Inquiry</option>
+            </select>
+            <span class="form-error-message-unique"></span>
+          </div>
+          <div class="cs-form-group">
+            <label for="contactMessage">Your Message</label>
+            <textarea
+              id="contactMessage"
+              name="contactMessage"
+              rows="6"
+              placeholder="Tell me about your project or inquiry..."
+              required
+            ></textarea>
+            <span class="form-error-message-unique"></span>
+          </div>
+          <button type="submit" class="cs-submit-btn">Send Message</button>
+          <div id="formStatusMessage" class="form-status-message-unique"></div>
+        </form>
+      </div>
+    </section>
+    <footer class="ft-footer-section">
+      <div class="ft-footer-container">
+        <div
+          class="ft-footer-column ft-footer-brand ft-reveal-on-scroll ft-column-reveal"
+          data-reveal-delay="0"
+        >
+          <h4>Beulahé interiors studio ltd</h4>
+          <p
+            style="
+              font-size: 0.9rem;
+              color: var(--ft-color-text-secondary);
+              line-height: 1.6;
+            "
+          >
+            Visionary interior spaces where artistry meets functional elegance.
+          </p>
+        </div>
+
+        <div
+          class="ft-footer-column ft-footer-nav ft-reveal-on-scroll ft-column-reveal"
+          data-reveal-delay="100"
+        >
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#bio">Portfolio</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#bio">About Us</a></li>
+          </ul>
+        </div>
+
+        <div
+          class="ft-footer-column ft-social-links ft-reveal-on-scroll ft-column-reveal"
+          data-reveal-delay="200"
+        >
+          <h4>Connect</h4>
+          <ul>
+            <li>
+              <a href="#" target="_blank">
+                <i class="fab fa-instagram ft-icon"></i> Instagram
+              </a>
+            </li>
+            <li>
+              <a href="#" target="_blank">
+                <i class="fab fa-x-twitter ft-icon"></i> X (Twitter)
+              </a>
+            </li>
+            <li>
+              <a href="#" target="_blank">
+                <i class="fab fa-linkedin-in ft-icon"></i> LinkedIn
+              </a>
+            </li>
+            <li>
+              <a href="#" target="_blank">
+                <i class="fab fa-pinterest-p ft-icon"></i> Pinterest
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div
+          class="ft-footer-column ft-footer-contact ft-reveal-on-scroll ft-column-reveal"
+          data-reveal-delay="300"
+        >
+          <h4>Contact Us</h4>
+          <p>
+            <a href="mailto:beulaheinteriorsstudio@gmail.com"
+              >beulaheinteriorsstudio@gmail.com
+            </a>
+          </p>
+          <p>
+            <a href="tel:+2347033952411">+234 (0) 7033952411 </a>
+          </p>
+          <p>Abuja, Nigeria</p>
+        </div>
+      </div>
+
+      <div
+        class="ft-footer-bottom ft-reveal-on-scroll ft-bottom-reveal"
+        data-reveal-delay="400"
+      >
+        <p class="ft-copyright">
+          © <span id="currentYear"></span> Beulahé interiors studio ltd. All
+          Rights Reserved. <br class="ft-br-mobile" />
+          <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a>
+        </p>
+      </div>
+    </footer>
+    <div class="cookie-banner" id="cookieBanner">
+      <div class="cookie-banner-content">
+        <p>
+          We use cookies to enhance your experience, analyze site traffic, and
+          personalize content. By clicking "Accept All", you consent to our use
+          of cookies.
+        </p>
+        <p>
+          <a href="/privacy-policy.html" target="_blank">Learn more</a> about
+          how we use cookies.
+        </p>
+      </div>
+      <div class="cookie-banner-actions">
+        <button class="cookie-banner-btn settings" id="cookieSettingsBtn">
+          Customize Settings
+        </button>
+        <button class="cookie-banner-btn accept" id="cookieAcceptBtn">
+          Accept All
+        </button>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const mainNav = document.getElementById("mainNav");
+        const hamburgerMenu = document.getElementById("hamburgerMenu");
+        const navLinksMobilePanel = document.getElementById("navLinksMobile");
+        const navLinksDesktop = document.getElementById("navLinksDesktop");
+        const sections = document.querySelectorAll("section[id]"); // Get all sections with an ID
+
+        // --- Navbar Scroll Effect ---
+        if (mainNav) {
+          const navHeight = mainNav.offsetHeight; // Get nav height once
+          window.addEventListener("scroll", () => {
+            if (window.scrollY > navHeight / 2) {
+              // Trigger when scrolled past half of nav height
+              mainNav.classList.add("scrolled");
+            } else {
+              mainNav.classList.remove("scrolled");
+            }
+          });
+        }
+
+        // --- Mobile Menu Toggle ---
+        function closeMobileMenu() {
+          if (hamburgerMenu && navLinksMobilePanel) {
+            hamburgerMenu.classList.remove("active");
+            navLinksMobilePanel.classList.remove("active");
+            document.body.classList.remove("no-scroll");
+          }
+        }
+        if (hamburgerMenu && navLinksMobilePanel) {
+          hamburgerMenu.addEventListener("click", (e) => {
+            e.stopPropagation();
+            hamburgerMenu.classList.toggle("active");
+            navLinksMobilePanel.classList.toggle("active");
+            document.body.classList.toggle(
+              "no-scroll",
+              navLinksMobilePanel.classList.contains("active")
+            );
+          });
+        }
+        // Close mobile nav on link click & set active
+        if (navLinksMobilePanel) {
+          navLinksMobilePanel.querySelectorAll("a.nav-link").forEach((link) => {
+            link.addEventListener("click", () => {
+              closeMobileMenu();
+              // Active class is handled by scrollspy, but good for immediate feedback
+              navLinksMobilePanel
+                .querySelectorAll("a.nav-link")
+                .forEach((l) => l.classList.remove("active"));
+              link.classList.add("active");
+            });
+          });
+        }
+        // Click Outside to Close Mobile Menu
+        document.addEventListener("click", (e) => {
+          if (
+            navLinksMobilePanel &&
+            navLinksMobilePanel.classList.contains("active")
+          ) {
+            if (
+              !navLinksMobilePanel.contains(e.target) &&
+              hamburgerMenu &&
+              !hamburgerMenu.contains(e.target)
+            ) {
+              closeMobileMenu();
+            }
+          }
+        });
+
+        // --- Desktop Nav Link Click (for immediate active state, scrollspy will confirm) ---
+        if (navLinksDesktop) {
+          navLinksDesktop.querySelectorAll("a.nav-link").forEach((link) => {
+            link.addEventListener("click", () => {
+              navLinksDesktop
+                .querySelectorAll("a.nav-link")
+                .forEach((l) => l.classList.remove("active"));
+              link.classList.add("active");
+              // Smooth scroll is handled by html scroll-behavior: smooth;
+            });
+          });
+        }
+
+        // --- Intersection Observer for Active Nav Link (Scrollspy) & Section Reveal ---
+        const scrollRevealSections = document.querySelectorAll(
+          ".scroll-reveal-section"
+        );
+
+        if (sections.length > 0) {
+          // Determine effective nav height for rootMargin
+          let effectiveNavHeight = 0;
+          if (mainNav) {
+            // Use current actual height, or fallback to CSS variable if not yet rendered
+            effectiveNavHeight =
+              mainNav.offsetHeight ||
+              parseInt(
+                getComputedStyle(document.documentElement)
+                  .getPropertyValue("--nav-height-desktop")
+                  .replace("px", ""),
+                10
+              ) ||
+              70;
+          }
+
+          const observerOptions = {
+            root: null,
+            rootMargin: `-${effectiveNavHeight}px 0px -${
+              window.innerHeight - effectiveNavHeight - 100
+            }px 0px`, // Target a line near the top of viewport below nav
+            threshold: 0, // Trigger as soon as any part enters the "detection zone"
+          };
+
+          const scrollspyObserver = new IntersectionObserver((entries) => {
+            let intersectingSectionId = null;
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                // Prioritize the topmost intersecting section if multiple are in view
+                if (
+                  intersectingSectionId === null ||
+                  entry.boundingClientRect.top <
+                    document
+                      .getElementById(intersectingSectionId)
+                      .getBoundingClientRect().top
+                ) {
+                  intersectingSectionId = entry.target.id;
+                }
+              }
+              // Handle scroll reveal for sections other than hero
+              if (
+                entry.target.classList.contains("scroll-reveal-section") &&
+                entry.isIntersecting
+              ) {
+                const delay = parseInt(entry.target.dataset.revealDelay) || 0;
+                setTimeout(() => {
+                  entry.target.classList.add("is-visible");
+                }, delay);
+                // scrollspyObserver.unobserve(entry.target); // Keep observing for scrollspy, but only add is-visible once for reveal
+              }
+            });
+
+            if (intersectingSectionId) {
+              // Update desktop nav
+              if (navLinksDesktop) {
+                navLinksDesktop
+                  .querySelectorAll("a.nav-link")
+                  .forEach((link) => {
+                    link.classList.remove("active");
+                    if (
+                      link.getAttribute("href") === `#${intersectingSectionId}`
+                    ) {
+                      link.classList.add("active");
+                    }
+                  });
+              }
+              // Update mobile nav
+              if (navLinksMobilePanel) {
+                navLinksMobilePanel
+                  .querySelectorAll("a.nav-link")
+                  .forEach((link) => {
+                    link.classList.remove("active");
+                    if (
+                      link.getAttribute("href") === `#${intersectingSectionId}`
+                    ) {
+                      link.classList.add("active");
+                    }
+                  });
+              }
+            } else {
+              // If no section is actively "intersecting" based on rootMargin, default to hero or first link
+              if (window.scrollY < window.innerHeight / 2) {
+                // Roughly if near top
+                if (navLinksDesktop)
+                  navLinksDesktop
+                    .querySelector('a.nav-link[href="#hero"]')
+                    ?.classList.add("active");
+                if (navLinksMobilePanel)
+                  navLinksMobilePanel
+                    .querySelector('a.nav-link[href="#hero"]')
+                    ?.classList.add("active");
+              }
+            }
+          }, observerOptions);
+
+          sections.forEach((section) => {
+            scrollspyObserver.observe(section);
+          });
+        }
+      });
+    </script>
+    <script src="bio.js"></script>
+    <script src="process.js"></script>
+    <script src="service.js"></script>
+    <script src="transformation.js"></script>
+    <script src="work.js"></script>
+    <script src="testimonials.js"></script>
+    <script src="contact.js"></script>
+    <script src="footer.js"></script>
+    <script src="cookie.js"></script>
+    <script src="case.js"></script>
+  </body>
+</html>

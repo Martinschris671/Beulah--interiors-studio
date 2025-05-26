@@ -1,0 +1,182 @@
+:root {
+  --po-font-primary: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --po-color-background: #e2e2e2;
+  --po-color-text-primary: #000000;
+  --po-color-text-secondary: #333333;
+  --po-color-border-subtle: #eaeaea;
+  --po-color-button-bg: var(--po-color-black);
+  --po-color-button-text: var(--po-color-white);
+  --po-color-button-hover-bg: #222222;
+
+  /* Ultra Smooth Animation Properties */
+  --animation-ultra-smooth-curve: cubic-bezier(
+    0.23,
+    1,
+    0.32,
+    1
+  ); /* easeOutQuint */
+  --animation-ultra-smooth-duration: 1s; /* Slightly adjusted for these elements */
+  --animation-hover-duration: 0.4s; /* For hover effects */
+
+  --po-animation-springy: cubic-bezier(
+    0.34,
+    1.56,
+    0.64,
+    1
+  ); /* For button click */
+}
+
+.po-section {
+  padding: 100px 40px;
+  background-color: var(--po-color-background);
+  overflow: hidden;
+}
+.po-container {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.po-section-title {
+  font-size: clamp(2.2rem, 5vw, 3.2rem);
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 70px;
+  color: var(--po-color-text-primary);
+  position: relative;
+  padding-bottom: 15px;
+  opacity: 0;
+  transform: translateY(30px); /* Increased initial transform */
+}
+.po-section-title.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity var(--animation-ultra-smooth-duration)
+      var(--animation-ultra-smooth-curve),
+    transform var(--animation-ultra-smooth-duration)
+      var(--animation-ultra-smooth-curve);
+}
+
+.po-portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
+  gap: 40px;
+}
+
+.po-project-item {
+  background-color: var(--po-color-white);
+  overflow: hidden;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  transform: translateY(50px); /* Increased initial transform */
+  /* Base transition for hover, reveal transition is applied when .is-visible */
+  transition: box-shadow var(--animation-hover-duration)
+      var(--animation-ultra-smooth-curve),
+    transform var(--animation-hover-duration)
+      var(--animation-ultra-smooth-curve);
+}
+.po-project-item.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  /* The transition-delay will be set by JS for stagger */
+  transition-property: opacity, transform; /* Specify properties for reveal */
+  transition-duration: var(--animation-ultra-smooth-duration);
+  transition-timing-function: var(--animation-ultra-smooth-curve);
+}
+.po-project-item:hover {
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
+  transform: translateY(-6px); /* Slightly more lift for ultra-smooth feel */
+}
+
+.po-project-image-wrapper {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  position: relative;
+}
+.po-project-image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform var(--animation-hover-duration)
+    var(--animation-ultra-smooth-curve); /* Smoother zoom */
+}
+.po-project-item:hover .po-project-image-wrapper img {
+  transform: scale(1.05);
+}
+
+.po-project-content {
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+.po-project-title {
+  font-size: clamp(1.3rem, 3vw, 1.6rem);
+  font-weight: 600;
+  color: var(--po-color-text-primary);
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+.po-project-tagline {
+  font-size: 0.9rem;
+  color: var(--po-color-text-secondary);
+  margin-bottom: 20px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+.po-view-case-study-btn {
+  font-family: var(--po-font-primary);
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-decoration: none;
+  color: var(--po-color-button-text);
+  background-color: var(--po-color-button-bg);
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-align: center;
+  display: inline-block;
+  margin-top: auto;
+  align-self: flex-start;
+  transition: background-color 0.3s var(--animation-ultra-smooth-curve),
+    transform 0.2s var(--po-animation-springy);
+  letter-spacing: 0.5px;
+}
+.po-view-case-study-btn:hover {
+  background-color: var(--po-color-button-hover-bg);
+  transform: translateY(-2px);
+  color: #e2e2e2;
+}
+.po-view-case-study-btn:active {
+  transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+  .po-section {
+    padding: 80px 20px;
+  }
+  .po-section-title {
+    font-size: clamp(1.8rem, 7vw, 2.5rem);
+    margin-bottom: 50px;
+  }
+  .po-portfolio-grid {
+    gap: 30px;
+  }
+}
+@media (max-width: 480px) {
+  .po-project-title {
+    font-size: clamp(1.1rem, 5vw, 1.4rem);
+  }
+  .po-project-tagline {
+    font-size: 0.85rem;
+  }
+  .po-view-case-study-btn {
+    padding: 10px 18px;
+    font-size: 0.85rem;
+    width: 100%;
+    align-self: center;
+  }
+}

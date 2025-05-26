@@ -1,0 +1,262 @@
+:root {
+  --csw-font-primary: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --csw-color-background: #ebebeb;
+  --csw-color-text-primary: #000000;
+  --csw-color-text-secondary: #333333;
+  --csw-color-text-nav-inactive: #a0a0a0;
+  --csw-color-text-nav-active: #000000;
+  --csw-color-nav-active-indicator: #000000;
+  --csw-color-image-bg-placeholder: #f0f0f0;
+  --csw-image-overlay-opacity: 0.1;
+
+  /* Ultra Smooth Animation Properties */
+  --animation-ultra-smooth-curve: cubic-bezier(
+    0.23,
+    1,
+    0.32,
+    1
+  ); /* easeOutQuint */
+  --animation-ultra-smooth-duration: 1s;
+  --animation-reveal-stagger-delay: 0.15s; /* Base stagger */
+
+  /* Existing smooth transitions for internal component updates */
+  --csw-animation-gentle: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Helper for scroll reveal */
+.csw-reveal-on-scroll {
+  opacity: 0;
+  transition: opacity var(--animation-ultra-smooth-duration)
+      var(--animation-ultra-smooth-curve),
+    transform var(--animation-ultra-smooth-duration)
+      var(--animation-ultra-smooth-curve);
+}
+.csw-reveal-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0) translateX(0) !important; /* Reset transforms */
+}
+.csw-header-reveal {
+  transform: translateY(30px);
+}
+.csw-nav-list-reveal {
+  transform: translateX(-40px);
+} /* Slide from left */
+.csw-display-area-reveal {
+  transform: translateX(40px);
+} /* Slide from right */
+
+.csw-section {
+  padding: 100px 40px;
+  background-color: var(--csw-color-background);
+  overflow: hidden;
+}
+.csw-container {
+  max-width: 1100px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.csw-section-title-header {
+  text-align: center;
+  margin-bottom: 70px;
+  /* opacity & transform handled by reveal classes */
+}
+.csw-section-title {
+  font-size: clamp(2.2rem, 5vw, 3.2rem);
+  font-weight: 600;
+  color: var(--csw-color-text-primary);
+  position: relative;
+  padding-bottom: 15px;
+  display: inline-block;
+}
+
+.csw-section-intro {
+  font-size: clamp(1rem, 2.2vw, 1.1rem);
+  color: var(--csw-color-text-secondary);
+  max-width: 600px;
+  margin: 15px auto 0;
+  line-height: 1.6;
+}
+
+.csw-interactive-showcase {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+}
+
+.csw-styles-navigation {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex: 0 0 250px;
+  /* opacity & transform handled by reveal classes */
+}
+.csw-nav-item {
+  font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+  font-weight: 500;
+  color: var(--csw-color-text-nav-inactive);
+  padding: 15px 10px 15px 0;
+  cursor: pointer;
+  border-bottom: 1px solid var(--csw-color-border-subtle);
+  transition: color 0.3s var(--csw-animation-gentle),
+    padding-left 0.3s var(--csw-animation-gentle);
+  position: relative;
+}
+.csw-nav-item:first-child {
+  border-top: 1px solid var(--csw-color-border-subtle);
+}
+.csw-nav-item:hover {
+  color: var(--csw-color-text-nav-active);
+}
+.csw-nav-item.is-active {
+  color: var(--csw-color-text-nav-active);
+  font-weight: 600;
+}
+.csw-nav-item.is-active::before {
+  content: "";
+  position: absolute;
+  left: -15px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 60%;
+  background-color: var(--csw-color-nav-active-indicator);
+  animation: csw-growLine 0.4s var(--csw-animation-gentle) forwards; /* Keep gentle for this UI feedback */
+}
+@keyframes csw-growLine {
+  from {
+    height: 0%;
+  }
+  to {
+    height: 60%;
+  }
+}
+
+.csw-display-area {
+  flex: 1 1 auto;
+  position: relative;
+  background-color: var(--csw-color-image-bg-placeholder);
+  aspect-ratio: 16 / 10;
+  max-height: 600px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+  /* opacity & transform handled by reveal classes */
+}
+.csw-image-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 1s var(--csw-animation-gentle); /* Keep gentle for cross-fade */
+}
+.csw-image-layer.is-active {
+  opacity: 1;
+}
+
+.csw-text-content {
+  position: absolute;
+  bottom: 30px;
+  left: 30px;
+  right: 30px;
+  z-index: 2;
+}
+.csw-style-title-display {
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 600;
+  color: rgb(230, 228, 228);
+  margin-bottom: 10px;
+  line-height: 1.2;
+  opacity: 0;
+  transform: translateY(15px);
+  transition: opacity 0.6s var(--csw-animation-gentle) 0.2s,
+    transform 0.6s var(--csw-animation-gentle) 0.2s;
+}
+.csw-style-title-display.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.csw-style-description-display {
+  font-size: clamp(0.9rem, 1.8vw, 1rem);
+  color: white;
+  line-height: 1.6;
+  max-width: 450px;
+  opacity: 0;
+  transform: translateY(15px);
+  transition: opacity 0.6s var(--csw-animation-gentle) 0.3s,
+    transform 0.6s var(--csw-animation-gentle) 0.3s;
+}
+.csw-style-description-display.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 800px) {
+  .csw-interactive-showcase {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 30px;
+  }
+  .csw-styles-navigation {
+    flex-basis: auto;
+    display: flex;
+    overflow-x: auto;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--csw-color-border-subtle);
+    margin-bottom: 10px;
+  }
+  .csw-styles-navigation::-webkit-scrollbar {
+    height: 4px;
+  }
+  .csw-styles-navigation::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 2px;
+  }
+  .csw-nav-item {
+    flex: 0 0 auto;
+    border-bottom: none;
+    border-right: 1px solid var(--csw-color-border-subtle);
+    padding: 12px 20px;
+    text-align: center;
+    white-space: nowrap;
+  }
+  .csw-nav-item:first-child {
+    border-top: none;
+    border-left: 1px solid var(--csw-color-border-subtle);
+  }
+  .csw-nav-item:last-child {
+    border-right: 1px solid var(--csw-color-border-subtle);
+  }
+  .csw-nav-item.is-active::before {
+    left: 50%;
+    top: auto;
+    bottom: -1px;
+    transform: translateX(-50%);
+    width: 70%;
+    height: 2.5px;
+    animation: csw-drawMobileIndicator 0.4s var(--csw-animation-gentle) forwards;
+  }
+  @keyframes csw-drawMobileIndicator {
+    from {
+      width: 0%;
+    }
+    to {
+      width: 70%;
+    }
+  }
+  .csw-display-area {
+    max-height: 450px;
+    aspect-ratio: 4/3;
+  }
+  .csw-text-content {
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+  }
+  .csw-style-title-display {
+    font-size: clamp(1.5rem, 5vw, 2.2rem);
+  }
+}

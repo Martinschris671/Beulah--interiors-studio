@@ -1,0 +1,323 @@
+:root {
+  --font-body-primary: "Montserrat", sans-serif;
+  --color-body-background: #f5f5f7;
+  --color-body-text: #1d1d1f;
+
+  --nav-initial-text-color: #ffffff; /* For nav over dark hero */
+  --nav-scrolled-text-color: #000000; /* For nav when page is scrolled */
+  --nav-active-line-initial-color: #ffffff;
+  --nav-active-line-scrolled-color: #000000;
+  --nav-bg-color-scrolled: rgba(245, 245, 247, 0.9);
+  --nav-height-desktop: 70px;
+  --nav-height-mobile: 60px;
+
+  --um-hero-font-primary: "Inter", "Helvetica Neue", Helvetica, Arial,
+    sans-serif;
+  --um-hero-text-primary-color: #ffffff;
+  --um-hero-text-secondary-color: #e0e0e0;
+  --um-hero-line-accent-color: #ffffff;
+  --um-hero-animation-curve: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --um-hero-bg-fallback: #1a1a1a;
+
+  --animation-ultra-smooth-curve: cubic-bezier(0.23, 1, 0.32, 1);
+  --animation-ultra-smooth-duration: 1.1s;
+}
+/* --- NAVIGATION BAR (UNCHANGED from previous perfected state) --- */
+.main-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 20px 5%;
+  display: flex;
+  align-items: center;
+  z-index: 1000;
+  background-color: transparent;
+  transition: background-color 0.4s ease-in-out, box-shadow 0.4s ease-in-out,
+    padding 0.3s ease;
+  min-height: var(--nav-height-mobile);
+}
+.main-nav.scrolled {
+  background-color: var(--nav-bg-color);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+.nav-logo svg {
+  width: 50px;
+  height: 50px;
+  opacity: 0;
+  transform: translateY(-20px);
+  margin-right: auto;
+  animation: navElementFadeIn var(--duration-tertiary-reveal)
+    var(--easing-ui-element) 1.5s forwards;
+}
+#navLinksDesktop {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+}
+.main-nav:not(:has(.nav-logo)) #navLinksDesktop {
+  margin-left: auto;
+  margin-right: 0;
+}
+#navLinksDesktop li {
+  margin-left: 30px;
+  opacity: 0;
+  transform: translateY(-20px);
+}
+#navLinksDesktop li:nth-child(1) {
+  animation: navElementFadeIn var(--duration-tertiary-reveal)
+    var(--easing-ui-element) 1.6s forwards;
+}
+#navLinksDesktop li:nth-child(2) {
+  animation: navElementFadeIn var(--duration-tertiary-reveal)
+    var(--easing-ui-element) 1.7s forwards;
+}
+#navLinksDesktop li:nth-child(3) {
+  animation: navElementFadeIn var(--duration-tertiary-reveal)
+    var(--easing-ui-element) 1.8s forwards;
+}
+#navLinksDesktop li:nth-child(4) {
+  animation: navElementFadeIn var(--duration-tertiary-reveal)
+    var(--easing-ui-element) 1.9s forwards;
+}
+#navLinksDesktop a {
+  text-decoration: none;
+  color: var(--nav-text-color);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  position: relative;
+  padding-bottom: 8px;
+  transition: color 0.3s ease;
+}
+#navLinksDesktop a::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background-color: var(--nav-active-line-color);
+  transform: translateX(-50%);
+  transition: width 0.3s var(--easing-ui-element);
+}
+#navLinksDesktop a:hover::after,
+#navLinksDesktop a.active::after {
+  width: 25px;
+}
+@keyframes navElementFadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.hamburger-menu {
+  display: none;
+  cursor: pointer;
+  z-index: 1001;
+  opacity: 0;
+  transform: translateY(-20px);
+  animation: navElementFadeIn var(--duration-tertiary-reveal)
+    var(--easing-ui-element) 1.5s forwards;
+  margin-left: 25px;
+  padding: 10px;
+  position: relative;
+}
+.main-nav:not(:has(.nav-logo)):not(
+    :has(#navLinksDesktop:not([style*="display:none"]))
+  )
+  .hamburger-menu {
+  margin-left: auto;
+}
+.hamburger-menu .bar {
+  display: block;
+  width: 25px;
+  height: 2.5px;
+  margin: 5px auto;
+  background-color: var(--nav-text-color);
+  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+.hamburger-menu.active .bar:nth-child(1) {
+  transform: translateY(7.5px) rotate(45deg);
+}
+.hamburger-menu.active .bar:nth-child(2) {
+  opacity: 0;
+}
+.hamburger-menu.active .bar:nth-child(3) {
+  transform: translateY(-7.5px) rotate(-45deg);
+}
+
+/* --- NEW HERO SECTION STYLES --- */
+.um-hero-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+  padding: 40px;
+  text-align: center;
+  position: relative;
+  opacity: 0;
+  animation: um-hero-section-fade-in 1.2s var(--um-hero-animation-curve) 0.2s
+    forwards;
+  color: var(--um-hero-text-primary-color);
+  font-family: var(--um-hero-font-primary);
+}
+.um-hero-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background-image: url("assets/Luxury.jpg");
+  background-size: cover;
+  background-position: center center;
+  filter: grayscale(0.1) brightness(0.5) contrast(1.1);
+  background-color: var(--um-hero-bg-fallback);
+}
+@keyframes um-hero-section-fade-in {
+  to {
+    opacity: 1;
+  }
+}
+.um-hero-title {
+  font-size: clamp(2.5rem, 8vw, 6rem);
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin-bottom: 20px;
+  color: var(--um-hero-text-primary-color);
+  opacity: 0;
+  transform: translateY(20px);
+  animation: um-hero-text-reveal 1s var(--um-hero-animation-curve) forwards;
+  position: relative;
+  z-index: 1;
+}
+.um-hero-title .um-hero-title-line {
+  display: block;
+}
+.um-hero-title .um-hero-title-line:nth-child(1) {
+  animation-delay: 0.5s;
+}
+.um-hero-title .um-hero-title-line:nth-child(2) {
+  animation-delay: 0.7s;
+}
+.um-hero-line-accent {
+  width: 80px;
+  height: 2px;
+  background-color: var(--um-hero-line-accent-color);
+  margin: 30px auto;
+  opacity: 0;
+  transform: scaleX(0);
+  animation: um-hero-line-draw 0.8s var(--um-hero-animation-curve) 1.2s forwards;
+  position: relative;
+  z-index: 1;
+}
+@keyframes um-hero-line-draw {
+  to {
+    opacity: 0.7;
+    transform: scaleX(1);
+  }
+}
+.um-hero-byline {
+  font-size: clamp(1rem, 2.5vw, 1.5rem);
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--um-hero-text-secondary-color);
+  opacity: 0;
+  transform: translateY(20px);
+  animation: um-hero-text-reveal 1s var(--um-hero-animation-curve) 0.9s forwards;
+  position: relative;
+  z-index: 1;
+}
+@keyframes um-hero-text-reveal {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@media (max-width: 480px) {
+  .um-hero-title {
+    font-size: clamp(2rem, 12vw, 3rem);
+    margin-bottom: 15px;
+  }
+  .um-hero-byline {
+    font-size: clamp(0.85rem, 4vw, 1rem);
+  }
+  .um-hero-line-accent {
+    margin: 20px auto;
+  }
+}
+
+/* --- Subsequent Sections Scroll Reveal --- */
+.scroll-reveal-section {
+  padding: 100px 40px;
+  min-height: 80vh;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity var(--animation-ultra-smooth-duration)
+      var(--animation-ultra-smooth-curve),
+    transform var(--animation-ultra-smooth-duration)
+      var(--animation-ultra-smooth-curve);
+}
+.scroll-reveal-section.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.scroll-reveal-section h2 {
+  font-size: clamp(2rem, 5vw, 3rem);
+  text-align: center;
+  margin-bottom: 60px;
+  color: var(--color-body-text);
+}
+
+/* Media Queries */
+@media (max-width: 991px) {
+  #navLinksDesktop {
+    display: none;
+  }
+  .hamburger-menu {
+    display: block;
+  }
+  .main-nav:not(:has(.nav-logo)) {
+    justify-content: flex-end;
+  }
+  .main-nav:has(.nav-logo) {
+    justify-content: space-between;
+  }
+}
+@media (min-width: 992px) {
+  #navLinksDesktop {
+    display: flex;
+  }
+  .hamburger-menu {
+    display: none;
+  }
+  .main-nav {
+    min-height: var(--nav-height-desktop);
+  }
+}
+
+/* Scroll Margin: Applied to all sections with an ID for anchor linking */
+section[id] {
+  scroll-margin-top: var(--nav-height-mobile);
+}
+@media (min-width: 992px) {
+  section[id] {
+    scroll-margin-top: var(--nav-height-desktop);
+  }
+}

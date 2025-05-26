@@ -1,0 +1,259 @@
+:root {
+  --icp-font-primary: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --icp-color-background: #ebebeb;
+  --icp-color-text-primary: #000000;
+  --icp-color-text-secondary: #333333;
+  --icp-color-text-inactive: #a0a0a0;
+  --icp-color-accent: #000000;
+  --icp-color-border-subtle: #eaeaea;
+  --icp-color-hover-bg-subtle: #f8f8f8;
+
+  /* Ultra Smooth Animation Properties */
+  --animation-ultra-smooth-curve: cubic-bezier(
+    0.23,
+    1,
+    0.32,
+    1
+  ); /* easeOutQuint */
+  --animation-ultra-smooth-duration: 1s;
+  --animation-reveal-stagger-delay: 0.1s; /* Base stagger for step buttons */
+}
+
+/* Helper for scroll reveal (if we generalize) */
+.icp-reveal-on-scroll {
+  opacity: 0;
+  /* Initial transform set by more specific classes */
+  transition: opacity var(--animation-ultra-smooth-duration)
+      var(--animation-ultra-smooth-curve),
+    transform var(--animation-ultra-smooth-duration)
+      var(--animation-ultra-smooth-curve);
+}
+.icp-reveal-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0) translateX(0) !important; /* Reset transforms */
+}
+.icp-title-reveal {
+  transform: translateY(30px);
+}
+.icp-stepper-item-reveal {
+  transform: translateX(-30px);
+} /* Stepper items slide from left */
+
+.icp-section {
+  padding: 100px 40px;
+  background-color: var(--icp-color-background);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.icp-container {
+  max-width: 950px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.icp-section-title {
+  font-size: clamp(2.2rem, 5vw, 3.2rem);
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 80px;
+  color: var(--icp-color-text-primary);
+  position: relative;
+  padding-bottom: 15px;
+  /* opacity & transform handled by reveal classes */
+}
+
+.icp-process-interactive-wrapper {
+  display: flex;
+  gap: 40px;
+  position: relative;
+}
+
+.icp-morphing-background {
+  position: absolute;
+  top: 10%;
+  left: 45%;
+  width: 300px;
+  height: 300px;
+  background-color: var(--icp-color-accent);
+  opacity: 0.03;
+  border-radius: 50% 30% 60% 40% / 40% 50% 30% 60%;
+  transition: transform 0.8s var(--animation-ultra-smooth-curve),
+    /* Smoother morph */ border-radius 0.8s var(--animation-ultra-smooth-curve),
+    opacity 0.5s var(--animation-ultra-smooth-curve);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.icp-stepper {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex: 0 0 280px;
+  z-index: 1;
+}
+
+.icp-step-button {
+  display: flex;
+  align-items: center;
+  padding: 18px 15px;
+  border-bottom: 1px solid var(--icp-color-border-subtle);
+  cursor: pointer;
+  /* opacity & transform handled by reveal classes */
+  /* Direct transitions for hover and active states */
+  transition: background-color 0.3s var(--animation-ultra-smooth-curve),
+    /* opacity and transform handled by .is-visible transition below */ color
+      0.3s var(--animation-ultra-smooth-curve);
+}
+/* .icp-step-button.is-visible already handled by general .icp-reveal-on-scroll.is-visible */
+
+.icp-step-button:first-child {
+  border-top: 1px solid var(--icp-color-border-subtle);
+}
+.icp-step-button:hover {
+  background-color: #f9f9f9;
+}
+.icp-step-button.is-active {
+  background-color: #f5f5f5;
+}
+
+.icp-step-number {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--icp-color-text-inactive);
+  margin-right: 15px;
+  transition: color 0.3s var(--animation-ultra-smooth-curve);
+  min-width: 30px;
+}
+.icp-step-button.is-active .icp-step-number {
+  color: var(--icp-color-accent);
+}
+.icp-step-title-text {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--icp-color-text-secondary);
+  transition: color 0.3s var(--animation-ultra-smooth-curve);
+}
+.icp-step-button.is-active .icp-step-title-text {
+  color: var(--icp-color-text-primary);
+  font-weight: 600;
+}
+
+.icp-content-panel {
+  flex: 1 1 auto;
+  padding-left: 40px;
+  position: relative;
+  min-height: 300px;
+  z-index: 1;
+}
+
+.icp-step-detail {
+  position: absolute;
+  top: 0;
+  left: 40px;
+  width: calc(100% - 40px);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(15px);
+  transition: opacity 0.5s var(--animation-ultra-smooth-curve),
+    /* Smoother fade for content */ visibility 0s linear 0.5s,
+    transform 0.5s var(--animation-ultra-smooth-curve);
+}
+.icp-step-detail.is-active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  transition: opacity 0.5s var(--animation-ultra-smooth-curve) 0.1s,
+    visibility 0s linear 0s,
+    transform 0.5s var(--animation-ultra-smooth-curve) 0.1s;
+}
+.icp-detail-title {
+  display: none;
+}
+.icp-detail-description p {
+  font-size: clamp(0.95rem, 2vw, 1.05rem);
+  line-height: 1.8;
+  color: var(--icp-color-text-secondary);
+  margin: 0 0 1em 0;
+}
+.icp-detail-description p:last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 800px) {
+  .icp-process-interactive-wrapper {
+    flex-direction: column;
+    gap: 30px;
+  }
+  .icp-stepper {
+    flex-basis: auto;
+    width: 100%;
+    display: flex;
+    overflow-x: auto;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--icp-color-border-subtle);
+  }
+  .icp-stepper::-webkit-scrollbar {
+    height: 4px;
+  }
+  .icp-stepper::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 2px;
+  }
+  .icp-step-button {
+    flex: 0 0 auto;
+    border-bottom: none;
+    border-right: 1px solid var(--icp-color-border-subtle);
+    padding: 15px 20px;
+    white-space: nowrap;
+  }
+  .icp-step-button:first-child {
+    border-top: none;
+    border-left: 1px solid var(--icp-color-border-subtle);
+  }
+  .icp-step-button:last-child {
+    border-right: 1px solid var(--icp-color-border-subtle);
+  }
+  .icp-content-panel {
+    padding-left: 0;
+    min-height: 200px;
+  }
+  .icp-step-detail {
+    left: 0;
+    width: 100%;
+  }
+  .icp-morphing-background {
+    left: 50%;
+    transform: translateX(-50%) scale(0.8);
+    top: 15%;
+    width: 80vw;
+    height: 80vw;
+    max-width: 250px;
+    max-height: 250px;
+  }
+}
+@media (max-width: 480px) {
+  .icp-section {
+    padding: 80px 20px;
+  }
+  .icp-section-title {
+    font-size: clamp(1.8rem, 7vw, 2.5rem);
+    margin-bottom: 50px;
+  }
+  .icp-stepper {
+    padding-bottom: 5px;
+  }
+  .icp-step-button {
+    padding: 12px 15px;
+  }
+  .icp-step-number {
+    font-size: 1rem;
+    margin-right: 10px;
+  }
+  .icp-step-title-text {
+    font-size: 1rem;
+  }
+}

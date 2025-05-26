@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Project Detail: The Serene Sanctuary</title>
+    <!-- Font Awesome for slider handle icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+
+      :root {
+        --pd-font-primary: "Inter", "Helvetica Neue", Helvetica, Arial,
+          sans-serif;
+        --pd-color-background: #ffffff;
+        --pd-color-text-primary: #000000;
+        --pd-color-text-secondary: #333333;
+        --pd-color-text-meta: #555555;
+        --pd-color-border-subtle: #e0e0e0;
+
+        /* Ultra Smooth Animation Properties */
+        --animation-ultra-smooth-curve: cubic-bezier(
+          0.23,
+          1,
+          0.32,
+          1
+        ); /* easeOutQuint */
+        --animation-ultra-smooth-duration: 1s;
+        --animation-reveal-stagger-delay: 0.15s;
+
+        /* Slider specific */
+        --slider-handle-color: var(--pd-color-text-primary);
+        --slider-line-color: rgba(0, 0, 0, 0.3); /* Slightly more subtle line */
+        --slider-label-bg: rgba(0, 0, 0, 0.75); /* Darker for better contrast */
+        --slider-label-text: var(--pd-color-background);
+      }
+
+      body,
+      html {
+        margin: 0;
+        padding: 0;
+        font-family: var(--pd-font-primary);
+        background-color: var(--pd-color-background);
+        color: var(--pd-color-text-primary);
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      /* Helper for scroll reveal */
+      .pd-reveal-on-scroll {
+        opacity: 0;
+        transition: opacity var(--animation-ultra-smooth-duration)
+            var(--animation-ultra-smooth-curve),
+          transform var(--animation-ultra-smooth-duration)
+            var(--animation-ultra-smooth-curve);
+      }
+      .pd-reveal-on-scroll.is-visible {
+        opacity: 1;
+        transform: translateY(0) !important;
+      }
+      .pd-header-reveal {
+        transform: translateY(30px);
+      }
+      .pd-block-reveal {
+        transform: translateY(40px);
+      }
+      .pd-image-reveal {
+        transform: translateY(40px);
+      }
+
+      .pd-project-section {
+        padding: 80px 0;
+      }
+      .pd-container {
+        max-width: 900px;
+        width: 90%;
+        margin: 0 auto;
+      }
+
+      .pd-project-header {
+        text-align: left;
+        margin-bottom: 70px;
+        padding-bottom: 35px;
+        border-bottom: 1px solid var(--pd-color-border-subtle);
+      }
+      .pd-project-title {
+        font-size: clamp(2.2rem, 5vw, 3.5rem);
+        font-weight: 600;
+        line-height: 1.2;
+        margin-bottom: 10px;
+      }
+      .pd-project-subtitle {
+        font-size: clamp(1rem, 2.5vw, 1.3rem);
+        font-weight: 400;
+        color: var(--pd-color-text-secondary);
+        margin-bottom: 20px;
+      }
+      .pd-project-meta {
+        font-size: 0.9rem;
+        color: var(--pd-color-text-meta);
+      }
+      .pd-project-meta span {
+        margin-right: 18px;
+        display: inline-block;
+        margin-bottom: 5px;
+      }
+      .pd-project-meta span:last-child {
+        margin-right: 0;
+      }
+
+      .pd-content-block {
+        margin-bottom: 70px;
+      }
+      .pd-content-block:last-child {
+        margin-bottom: 0;
+      }
+      .pd-block-heading {
+        font-size: clamp(1.3rem, 3vw, 1.7rem);
+        font-weight: 600;
+        margin-bottom: 25px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid var(--pd-color-border-subtle);
+        display: inline-block;
+      }
+      .pd-block-text p,
+      .pd-block-list li {
+        font-size: clamp(0.95rem, 2.2vw, 1.05rem);
+        line-height: 1.8;
+        color: var(--pd-color-text-secondary);
+        margin-bottom: 1.2em;
+      }
+      .pd-block-text p:last-child,
+      .pd-block-list li:last-child {
+        margin-bottom: 0;
+      }
+      .pd-block-list {
+        padding-left: 20px;
+        list-style-type: disc;
+      }
+      .pd-block-list li::marker {
+        color: var(--pd-color-text-primary);
+      }
+
+      .pd-image-showcase {
+        margin: 50px 0;
+      }
+      .pd-image-fullwidth img {
+        width: 100%;
+        height: auto;
+        display: block;
+
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+      }
+      .pd-image-caption {
+        text-align: center;
+        font-size: 0.85rem;
+        color: var(--pd-color-text-meta);
+        margin-top: 18px;
+        font-style: italic;
+      }
+      .pd-image-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 25px;
+      }
+      .pd-image-grid img {
+        width: 100%;
+        height: 100%;
+        aspect-ratio: 4/3;
+        object-fit: cover;
+        display: block;
+
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+      }
+
+      /* --- REDESIGNED BEFORE/AFTER SLIDER --- */
+      .pd-before-after-wrapper {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 16 / 10;
+        overflow: hidden;
+
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        cursor: ew-resize;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        margin: 50px 0;
+        touch-action: pan-y; /* Allow vertical scroll by default */
+      }
+      .pd-before-after-wrapper.is-dragging {
+        /* touch-action: none; /* Optionally disable all scroll if strictly horizontal drag is desired once started */
+      }
+      .pd-before-after-wrapper img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        position: absolute;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+      }
+      .pd-img-after-slider {
+        clip-path: polygon(50% 0, 100% 0, 100% 100%, 50% 100%);
+        z-index: 2;
+      }
+      .pd-img-before-slider {
+        z-index: 1;
+      }
+
+      .pd-slider-divider {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        width: 3px;
+        height: 100%;
+        background-color: var(--pd-color-background);
+        transform: translateX(-50%);
+        z-index: 3;
+        pointer-events: none;
+        box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .pd-slider-handle-gripper {
+        width: 44px;
+        height: 44px;
+        background-color: var(--pd-color-background);
+        border: 2px solid var(--slider-handle-color);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+        transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        cursor: ew-resize;
+      }
+      .pd-before-after-wrapper:hover .pd-slider-handle-gripper,
+      .pd-before-after-wrapper.is-dragging .pd-slider-handle-gripper {
+        transform: scale(1.08);
+      }
+      .pd-slider-handle-gripper i {
+        color: var(--slider-handle-color);
+        font-size: 0.9rem;
+      }
+
+      .pd-slider-label {
+        position: absolute;
+        top: 15px;
+        padding: 6px 12px;
+        font-size: 0.7rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+        background-color: var(--slider-label-bg);
+        color: var(--slider-label-text);
+        border-radius: 4px;
+        z-index: 4;
+        opacity: 0;
+        transition: opacity 0.3s var(--animation-ultra-smooth-curve);
+        pointer-events: none;
+      }
+      .pd-before-after-wrapper:hover .pd-slider-label,
+      .pd-before-after-wrapper.is-dragging .pd-slider-label {
+        opacity: 0.9;
+      }
+      .pd-label-before-slider {
+        left: 15px;
+      }
+      .pd-label-after-slider {
+        right: 15px;
+      }
+      /* --- END OF REDESIGNED SLIDER --- */
+
+      .pd-testimonial-block {
+        background-color: #f9f9f9;
+        padding: 35px;
+        margin: 60px 0;
+        border-radius: 8px;
+        border-left: 5px solid var(--pd-color-text-primary);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
+      }
+      .pd-testimonial-quote {
+        font-size: clamp(1.05rem, 2.3vw, 1.2rem);
+        font-style: italic;
+        line-height: 1.7;
+        color: var(--pd-color-text-primary);
+        margin-bottom: 15px;
+      }
+      .pd-testimonial-quote::before {
+        content: "“ ";
+        font-weight: 600;
+      }
+      .pd-testimonial-author {
+        font-size: 0.9rem;
+        font-weight: 500;
+        color: var(--pd-color-text-secondary);
+        text-align: right;
+      }
+
+      @media (max-width: 768px) {
+        .pd-project-section {
+          padding: 60px 0;
+        }
+        .pd-container {
+          width: 95%;
+        }
+        .pd-project-header {
+          margin-bottom: 40px;
+          padding-bottom: 20px;
+        }
+        .pd-project-title {
+          font-size: clamp(1.8rem, 6vw, 2.8rem);
+        }
+        .pd-project-subtitle {
+          font-size: clamp(0.9rem, 3vw, 1.1rem);
+        }
+        .pd-content-block {
+          margin-bottom: 50px;
+        }
+        .pd-block-heading {
+          font-size: clamp(1.1rem, 4vw, 1.5rem);
+          margin-bottom: 20px;
+        }
+        .pd-block-text p,
+        .pd-block-list li {
+          font-size: clamp(0.9rem, 2.5vw, 1rem);
+        }
+        .pd-image-showcase,
+        .pd-before-after-wrapper {
+          margin: 40px 0;
+        }
+        .pd-slider-handle-gripper {
+          width: 40px;
+          height: 40px;
+        }
+        .pd-slider-handle-gripper i {
+          font-size: 0.8rem;
+        }
+        .pd-slider-label {
+          font-size: 0.65rem;
+          padding: 5px 10px;
+          top: 10px;
+        }
+        .pd-label-before-slider {
+          left: 10px;
+        }
+        .pd-label-after-slider {
+          right: 10px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <section class="pd-project-section">
+      <div class="pd-container">
+        <header
+          class="pd-project-header pd-reveal-on-scroll pd-header-reveal"
+          data-reveal-delay="0"
+        >
+          <h1 class="pd-project-title">The Serene Sanctuary Residence</h1>
+          <h2 class="pd-project-subtitle">Private Villa, Ikoyi, Lagos</h2>
+          <div class="pd-project-meta">
+            <span><strong>Client:</strong> The Adebayo Family</span>
+            <span><strong>Completed:</strong> August 2023</span>
+            <span><strong>Scope:</strong> Full Interior Design & Styling</span>
+          </div>
+        </header>
+
+        <div
+          class="pd-content-block pd-reveal-on-scroll pd-block-reveal"
+          data-reveal-delay="100"
+        >
+          <h3 class="pd-block-heading">Client Brief</h3>
+          <div class="pd-block-text">
+            <p>
+              The Adebayo family desired a complete transformation of their
+              newly acquired villa into a tranquil urban retreat. Key
+              requirements included a seamless blend of modern luxury with
+              natural elements, maximizing natural light, and creating distinct
+              zones for family living, entertaining, and private relaxation. The
+              overarching goal was a sophisticated yet comfortable environment
+              that felt both expansive and intimate.
+            </p>
+          </div>
+        </div>
+
+        <div
+          class="pd-image-showcase pd-image-grid pd-reveal-on-scroll pd-image-reveal"
+          data-reveal-delay="150"
+        >
+          <img src="assets/sketch.jpeg" alt="Concept Sketch 1" />
+          <img src="assets/moodboard.jpeg" alt="Mood Board Materials" />
+          <div class="pd-image-caption" style="grid-column: 1 / -1">
+            Initial concepts and material palette exploration.
+          </div>
+        </div>
+
+        <div
+          class="pd-content-block pd-reveal-on-scroll pd-block-reveal"
+          data-reveal-delay="100"
+        >
+          <h3 class="pd-block-heading">Design Challenges</h3>
+          <div class="pd-block-list">
+            <ul>
+              <li>
+                Integrating existing structural elements with a new,
+                open-concept layout.
+              </li>
+              <li>
+                Sourcing sustainable and locally-available high-end materials.
+              </li>
+              <li>
+                Balancing the desire for a minimalist aesthetic with the need
+                for ample, discreet storage.
+              </li>
+              <li>
+                Ensuring each room flowed cohesively while maintaining its
+                unique character.
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div
+          class="pd-content-block pd-reveal-on-scroll pd-block-reveal"
+          data-reveal-delay="150"
+        >
+          <h3 class="pd-block-heading">Our Solutions</h3>
+          <div class="pd-block-text">
+            <p>
+              Our design strategy focused on a palette of warm neutrals, rich
+              woods, and tactile stone, punctuated by bespoke lighting and
+              curated art. Custom millwork was designed to provide elegant
+              storage solutions, disappearing into walls to maintain clean
+              lines. Large windows were dressed minimally to enhance the
+              connection with the outdoors, and a layered lighting scheme allows
+              for adaptable ambiances throughout the day and night.
+            </p>
+            <p>
+              Key material choices included Italian marble for statement
+              surfaces, ethically sourced oak for flooring and cabinetry, and
+              hand-woven textiles for warmth and texture.
+            </p>
+          </div>
+        </div>
+
+        <div
+          class="pd-image-showcase pd-image-fullwidth pd-reveal-on-scroll pd-image-reveal"
+          data-reveal-delay="200"
+        >
+          <img
+            src="assets/images-34.jpeg"
+            alt="Serene Sanctuary Living Room - After"
+          />
+          <div class="pd-image-caption">
+            The transformed living area, embodying light and sophisticated calm.
+          </div>
+        </div>
+
+        <div
+          class="pd-content-block pd-reveal-on-scroll pd-block-reveal"
+          data-reveal-delay="250"
+        >
+          <h3 class="pd-block-heading">Transformation: Kitchen</h3>
+          <div class="pd-before-after-wrapper">
+            <img
+              src="assets/before.jpeg"
+              alt="Kitchen Before"
+              class="pd-img-before-slider"
+            />
+            <img
+              src="assets/after.jpeg"
+              alt="Kitchen After"
+              class="pd-img-after-slider"
+            />
+            <div class="pd-slider-label pd-label-before-slider">Before</div>
+            <div class="pd-slider-label pd-label-after-slider">After</div>
+            <div class="pd-slider-divider">
+              <div class="pd-slider-handle-gripper">
+                <i class="fas fa-chevron-left"></i>
+                <i class="fas fa-chevron-right"></i>
+              </div>
+            </div>
+          </div>
+          <div class="pd-image-caption">
+            Drag the handle to see the kitchen's transformation.
+          </div>
+        </div>
+
+        <div
+          class="pd-testimonial-block pd-content-block pd-reveal-on-scroll pd-block-reveal"
+          data-reveal-delay="300"
+        >
+          <h3 class="pd-block-heading">Client Testimonial</h3>
+          <blockquote class="pd-testimonial-quote">
+            "OLUWOLE JOY TEMITOPE didn't just redesign our house; they crafted a
+            home that truly reflects who we are. The attention to detail and the
+            seamless process were exceptional. We are beyond thrilled with the
+            result."
+          </blockquote>
+          <p class="pd-testimonial-author">— Mr. & Mrs. Adebayo</p>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        // Scroll Reveal for general page elements
+        const revealElements = document.querySelectorAll(
+          ".pd-reveal-on-scroll"
+        );
+        if (revealElements.length > 0) {
+          const observerOptions = {
+            root: null,
+            rootMargin: "0px 0px -10% 0px",
+            threshold: 0.05,
+          };
+          let itemDelayCounter = 0; // Initialize counter for staggering
+          const staggerIncrement = 100; // ms
+
+          const observer = new IntersectionObserver(
+            (entries, observerInstance) => {
+              entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                  // Use data-reveal-delay if present, otherwise use counter for staggering
+                  const specificDelay = parseInt(
+                    entry.target.dataset.revealDelay
+                  );
+                  const delay = !isNaN(specificDelay)
+                    ? specificDelay
+                    : itemDelayCounter * staggerIncrement;
+
+                  setTimeout(() => {
+                    entry.target.classList.add("is-visible");
+                  }, delay);
+
+                  if (isNaN(specificDelay)) {
+                    // Only increment counter if not using a fixed delay
+                    itemDelayCounter++;
+                  }
+                  observerInstance.unobserve(entry.target);
+                }
+              });
+            },
+            observerOptions
+          );
+          revealElements.forEach((el) => {
+            observer.observe(el);
+          });
+        }
+
+        // --- REDESIGNED Before/After Image Comparison Slider Logic (Corrected) ---
+        const sliders = document.querySelectorAll(".pd-before-after-wrapper");
+        sliders.forEach((slider) => {
+          const imgAfter = slider.querySelector(".pd-img-after-slider");
+          const divider = slider.querySelector(".pd-slider-divider");
+          const labelBefore = slider.querySelector(".pd-label-before-slider");
+          const labelAfter = slider.querySelector(".pd-label-after-slider");
+
+          let isDragging = false;
+          let currentInteractingSlider = null; // To track which slider is being interacted with
+
+          // Store initial touch points for scroll vs drag detection
+          let initialTouchX = 0;
+          let initialTouchY = 0;
+          let dragIntentConfirmed = false;
+          const touchDragThreshold = 10; // Pixels to move before confirming drag direction
+
+          function updateSliderPosition(xPosition, activeSlider) {
+            if (!activeSlider || !imgAfter || !divider) return;
+
+            const sliderRect = activeSlider.getBoundingClientRect();
+            let percentage =
+              ((xPosition - sliderRect.left) / sliderRect.width) * 100;
+            percentage = Math.max(0, Math.min(100, percentage));
+
+            imgAfter.style.clipPath = `polygon(${percentage}% 0, 100% 0, 100% 100%, ${percentage}% 100%)`;
+            divider.style.left = `${percentage}%`;
+
+            if (labelBefore && labelAfter) {
+              const showLabels =
+                activeSlider.matches(":hover") ||
+                activeSlider.classList.contains("is-dragging");
+              labelBefore.style.opacity =
+                percentage > 5 && showLabels ? "0.9" : "0";
+              labelAfter.style.opacity =
+                percentage < 95 && showLabels ? "0.9" : "0";
+            }
+          }
+
+          if (slider.offsetParent !== null) {
+            updateSliderPosition(
+              slider.getBoundingClientRect().left +
+                slider.getBoundingClientRect().width * 0.5,
+              slider
+            );
+            if (labelBefore) labelBefore.style.opacity = "0";
+            if (labelAfter) labelAfter.style.opacity = "0";
+          }
+
+          function startDrag(e) {
+            currentInteractingSlider = slider; // This slider is now being interacted with
+            isDragging = true;
+            dragIntentConfirmed = e.type === "mousedown";
+            currentInteractingSlider.classList.add("is-dragging");
+            document.body.style.cursor = "ew-resize";
+
+            let clientX;
+            if (e.type === "touchstart") {
+              clientX = e.touches[0].clientX;
+              initialTouchX = clientX;
+              initialTouchY = e.touches[0].clientY;
+            } else {
+              // mousedown
+              clientX = e.clientX;
+              updateSliderPosition(clientX, currentInteractingSlider); // Initial update for mouse
+            }
+          }
+
+          function duringDrag(e) {
+            if (!isDragging || currentInteractingSlider !== slider) return;
+
+            let clientX;
+            if (e.type === "touchmove") {
+              clientX = e.touches[0].clientX;
+              const clientY = e.touches[0].clientY;
+              const deltaX = Math.abs(clientX - initialTouchX);
+              const deltaY = Math.abs(clientY - initialTouchY);
+
+              if (!dragIntentConfirmed) {
+                if (
+                  deltaX > touchDragThreshold ||
+                  deltaY > touchDragThreshold
+                ) {
+                  if (deltaX > deltaY * 1.5) {
+                    dragIntentConfirmed = true;
+                  } else {
+                    endDrag();
+                    return;
+                  }
+                } else {
+                  return;
+                }
+              }
+              if (!dragIntentConfirmed) return;
+              if (e.cancelable) e.preventDefault();
+            } else {
+              // mousemove
+              clientX = e.clientX;
+            }
+            updateSliderPosition(clientX, currentInteractingSlider);
+          }
+
+          function endDrag() {
+            if (!isDragging && !currentInteractingSlider) return;
+            if (
+              currentInteractingSlider !== slider &&
+              currentInteractingSlider !== null
+            )
+              return; // Only end for the correct slider
+
+            isDragging = false;
+            dragIntentConfirmed = false;
+            if (currentInteractingSlider) {
+              currentInteractingSlider.classList.remove("is-dragging");
+              const handleLeftPercent = parseFloat(
+                currentInteractingSlider.querySelector(".pd-slider-divider")
+                  .style.left || "50"
+              );
+              const currentXBasedOnHandle =
+                currentInteractingSlider.getBoundingClientRect().left +
+                currentInteractingSlider.getBoundingClientRect().width *
+                  (handleLeftPercent / 100);
+              updateSliderPosition(
+                currentXBasedOnHandle,
+                currentInteractingSlider
+              );
+            }
+            document.body.style.cursor = "default";
+            if (currentInteractingSlider === slider)
+              currentInteractingSlider = null;
+          }
+
+          slider.addEventListener("mousedown", startDrag);
+          slider.addEventListener("touchstart", startDrag, { passive: true });
+
+          slider.addEventListener("mouseenter", () => {
+            if (!isDragging && labelBefore && labelAfter && divider) {
+              const handleLeftPercent = parseFloat(divider.style.left || "50");
+              labelBefore.style.opacity = handleLeftPercent > 5 ? "0.9" : "0";
+              labelAfter.style.opacity = handleLeftPercent < 95 ? "0.9" : "0";
+            }
+          });
+          slider.addEventListener("mouseleave", () => {
+            if (!isDragging && labelBefore && labelAfter) {
+              labelBefore.style.opacity = "0";
+              labelAfter.style.opacity = "0";
+            }
+          });
+        }); // End sliders.forEach
+
+        // Global listeners for dragging - these are essential
+        document.addEventListener("mousemove", (e) => {
+          sliders.forEach((s) => {
+            // Check if current mousemove is relevant for this slider
+            const sliderInstance = s; // Get the specific slider instance in this scope
+            // This is a simplified check; ideally, you'd use the `currentInteractingSlider`
+            // from the `startDrag` closure of the specific slider.
+            // For now, let's assume only one slider can be dragged at a time.
+            // The `duringDrag` function itself checks `currentInteractingSlider`.
+            const duringDragFunc = sliderInstance.duringDragHandler; // Assume you store this
+            if (duringDragFunc) duringDragFunc(e);
+          });
+        });
+        document.addEventListener("mouseup", () => {
+          sliders.forEach((s) => {
+            const endDragFunc = s.endDragHandler; // Assume you store this
+            if (endDragFunc) endDragFunc();
+          });
+        });
+        document.addEventListener(
+          "touchmove",
+          (e) => {
+            sliders.forEach((s) => {
+              const duringDragFunc = s.duringDragHandler;
+              if (duringDragFunc) duringDragFunc(e);
+            });
+          },
+          { passive: false }
+        );
+        document.addEventListener("touchend", () => {
+          sliders.forEach((s) => {
+            const endDragFunc = s.endDragHandler;
+            if (endDragFunc) endDragFunc();
+          });
+        });
+        document.addEventListener("touchcancel", () => {
+          sliders.forEach((s) => {
+            const endDragFunc = s.endDragHandler;
+            if (endDragFunc) endDragFunc();
+          });
+        });
+
+        // Storing handlers on elements for global listeners (better approach)
+        sliders.forEach((slider) => {
+          // ... (keep existing slider setup, like querySelectors for imgAfter, divider etc.)
+          // ... (keep isDragging, initialTouchX/Y, dragIntentConfirmed scoped to each slider)
+
+          // Wrap the actual logic in functions scoped to each slider
+          const sliderScopedFunctions = {
+            startDrag: function (e) {
+              // ... (startDrag logic, sets isDragging=true for this slider)
+              // ... (set slider.currentInteractingSlider = slider or similar)
+              slider.isCurrentlyDragging = true; // Use a property on the element
+              document.body.style.cursor = "ew-resize";
+              let clientX;
+              if (e.type === "touchstart") {
+                clientX = e.touches[0].clientX;
+                slider.initialTouchX = clientX; // Store on element
+                slider.initialTouchY = e.touches[0].clientY;
+                slider.dragIntentConfirmed = false;
+              } else {
+                clientX = e.clientX;
+                slider.dragIntentConfirmed = true;
+                this.updateSliderPosition(clientX, slider);
+              }
+            },
+            duringDrag: function (e) {
+              if (!slider.isCurrentlyDragging) return;
+              let clientX;
+              if (e.type === "touchmove") {
+                clientX = e.touches[0].clientX;
+                const clientY = e.touches[0].clientY;
+                const deltaX = Math.abs(clientX - slider.initialTouchX);
+                const deltaY = Math.abs(clientY - slider.initialTouchY);
+
+                if (!slider.dragIntentConfirmed) {
+                  if (deltaX > 10 || deltaY > 10) {
+                    if (deltaX > deltaY * 1.5) {
+                      slider.dragIntentConfirmed = true;
+                    } else {
+                      this.endDrag();
+                      return;
+                    }
+                  } else {
+                    return;
+                  }
+                }
+                if (!slider.dragIntentConfirmed) return;
+                if (e.cancelable) e.preventDefault();
+              } else {
+                clientX = e.clientX;
+              }
+              this.updateSliderPosition(clientX, slider);
+            },
+            endDrag: function () {
+              if (!slider.isCurrentlyDragging) return;
+              slider.isCurrentlyDragging = false;
+              slider.dragIntentConfirmed = false;
+              slider.classList.remove("is-dragging");
+              document.body.style.cursor = "default";
+              const divider = slider.querySelector(".pd-slider-divider"); // Re-query or ensure access
+              const imgAfter = slider.querySelector(".pd-img-after-slider"); // Re-query
+              if (divider && imgAfter) {
+                // Check if elements are still there
+                const handleLeftPercent = parseFloat(
+                  divider.style.left || "50"
+                );
+                const currentXBasedOnHandle =
+                  slider.getBoundingClientRect().left +
+                  slider.getBoundingClientRect().width *
+                    (handleLeftPercent / 100);
+                this.updateSliderPosition(currentXBasedOnHandle, slider);
+              }
+            },
+            updateSliderPosition: function (xPosition, activeSlider) {
+              // ... (your existing updateSliderPosition logic)
+              const imgAfter = activeSlider.querySelector(
+                ".pd-img-after-slider"
+              );
+              const divider = activeSlider.querySelector(".pd-slider-divider");
+              const labelBefore = activeSlider.querySelector(
+                ".pd-label-before-slider"
+              );
+              const labelAfter = activeSlider.querySelector(
+                ".pd-label-after-slider"
+              );
+              if (!activeSlider || !imgAfter || !divider) return;
+
+              const sliderRect = activeSlider.getBoundingClientRect();
+              let percentage =
+                ((xPosition - sliderRect.left) / sliderRect.width) * 100;
+              percentage = Math.max(0, Math.min(100, percentage));
+
+              imgAfter.style.clipPath = `polygon(${percentage}% 0, 100% 0, 100% 100%, ${percentage}% 100%)`;
+              divider.style.left = `${percentage}%`;
+
+              if (labelBefore && labelAfter) {
+                const showLabels =
+                  activeSlider.matches(":hover") ||
+                  activeSlider.classList.contains("is-dragging") ||
+                  activeSlider.isCurrentlyDragging;
+                labelBefore.style.opacity =
+                  percentage > 5 && showLabels ? "0.9" : "0";
+                labelAfter.style.opacity =
+                  percentage < 95 && showLabels ? "0.9" : "0";
+              }
+            },
+          };
+          // Initialize slider state
+          if (slider.offsetParent !== null) {
+            sliderScopedFunctions.updateSliderPosition(
+              slider.getBoundingClientRect().left +
+                slider.getBoundingClientRect().width * 0.5,
+              slider
+            );
+            const labelBefore = slider.querySelector(".pd-label-before-slider");
+            const labelAfter = slider.querySelector(".pd-label-after-slider");
+            if (labelBefore) labelBefore.style.opacity = "0";
+            if (labelAfter) labelAfter.style.opacity = "0";
+          }
+
+          slider.addEventListener(
+            "mousedown",
+            sliderScopedFunctions.startDrag.bind(sliderScopedFunctions)
+          );
+          slider.addEventListener(
+            "touchstart",
+            sliderScopedFunctions.startDrag.bind(sliderScopedFunctions),
+            { passive: true }
+          );
+
+          // Store these on the element so global listeners can call them correctly
+          slider.duringDragHandler = sliderScopedFunctions.duringDrag.bind(
+            sliderScopedFunctions
+          );
+          slider.endDragHandler = sliderScopedFunctions.endDrag.bind(
+            sliderScopedFunctions
+          );
+
+          slider.addEventListener("mouseenter", () => {
+            if (!slider.isCurrentlyDragging) {
+              const divider = slider.querySelector(".pd-slider-divider");
+              const labelBefore = slider.querySelector(
+                ".pd-label-before-slider"
+              );
+              const labelAfter = slider.querySelector(".pd-label-after-slider");
+              if (divider && labelBefore && labelAfter) {
+                const handleLeftPercent = parseFloat(
+                  divider.style.left || "50"
+                );
+                labelBefore.style.opacity = handleLeftPercent > 5 ? "0.9" : "0";
+                labelAfter.style.opacity = handleLeftPercent < 95 ? "0.9" : "0";
+              }
+            }
+          });
+          slider.addEventListener("mouseleave", () => {
+            if (!slider.isCurrentlyDragging) {
+              const labelBefore = slider.querySelector(
+                ".pd-label-before-slider"
+              );
+              const labelAfter = slider.querySelector(".pd-label-after-slider");
+              if (labelBefore) labelBefore.style.opacity = "0";
+              if (labelAfter) labelAfter.style.opacity = "0";
+            }
+          });
+        });
+
+        // Corrected Global Event Listeners
+        function globalMouseMove(e) {
+          sliders.forEach((slider) => {
+            if (
+              slider.isCurrentlyDragging &&
+              typeof slider.duringDragHandler === "function"
+            ) {
+              slider.duringDragHandler(e);
+            }
+          });
+        }
+        function globalMouseUp(e) {
+          sliders.forEach((slider) => {
+            if (
+              slider.isCurrentlyDragging &&
+              typeof slider.endDragHandler === "function"
+            ) {
+              slider.endDragHandler(e);
+            }
+          });
+        }
+        // Add touch equivalents similarly, ensuring they call the correct stored handler
+        document.addEventListener("mousemove", globalMouseMove);
+        document.addEventListener("mouseup", globalMouseUp);
+        document.addEventListener("touchmove", globalMouseMove, {
+          passive: false,
+        }); // Use globalMouseMove for touch as well
+        document.addEventListener("touchend", globalMouseUp); // Use globalMouseUp for touch as well
+        document.addEventListener("touchcancel", globalMouseUp); // Use globalMouseUp for touch as well
+      });
+    </script>
+  </body>
+</html>

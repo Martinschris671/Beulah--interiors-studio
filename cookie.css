@@ -1,0 +1,127 @@
+:root {
+  --cb-font-primary: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --cb-color-background: #1a1a1a; /* Dark, sophisticated background for the banner */
+  --cb-color-text-primary: #ffffff; /* White text for high contrast */
+  --cb-color-text-secondary: #b0b0b0; /* Lighter grey for secondary text */
+  --cb-color-button-accept-bg: #ffffff; /* White accept button */
+  --cb-color-button-accept-text: #000000; /* Black text for accept button */
+  --cb-color-button-settings-bg: transparent;
+  --cb-color-button-settings-text: #ffffff;
+  --cb-color-button-settings-border: #555555;
+  --cb-animation-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --cb-animation-banner-slide: cubic-bezier(
+    0.4,
+    0,
+    0.2,
+    1
+  ); /* Smoother slide */
+}
+
+.cookie-banner {
+  position: fixed;
+  bottom: -200px; /* Start off-screen */
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 40px); /* Responsive width with padding */
+  max-width: 600px; /* Max width for readability */
+  background-color: var(--cb-color-background);
+  color: var(--cb-color-text-primary);
+  padding: 25px 30px;
+  border-radius: 12px 12px 0 0; /* Rounded top corners */
+  box-shadow: 0 -5px 25px rgba(0, 0, 0, 0.25); /* Stronger shadow for elevation */
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  opacity: 0;
+  visibility: hidden;
+  transition: bottom 0.7s var(--cb-animation-banner-slide),
+    opacity 0.7s var(--cb-animation-banner-slide), visibility 0s linear 0.7s; /* Delay visibility change */
+}
+
+.cookie-banner.is-visible {
+  bottom: 0;
+  opacity: 1;
+  visibility: visible;
+  transition: bottom 0.7s var(--cb-animation-banner-slide),
+    opacity 0.7s var(--cb-animation-banner-slide), visibility 0s linear 0s;
+}
+
+.cookie-banner-content p {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--cb-color-text-secondary);
+  margin: 0 0 10px 0;
+}
+.cookie-banner-content p:last-of-type {
+  margin-bottom: 0;
+}
+
+.cookie-banner-content a {
+  color: var(--cb-color-text-primary);
+  text-decoration: underline;
+  font-weight: 500;
+  transition: color 0.3s var(--cb-animation-smooth);
+}
+.cookie-banner-content a:hover {
+  color: #dddddd;
+}
+
+.cookie-banner-actions {
+  display: flex;
+  gap: 15px;
+  justify-content: flex-end; /* Align buttons to the right */
+  flex-wrap: wrap; /* Wrap buttons on smaller screens */
+}
+
+.cookie-banner-btn {
+  font-family: var(--cb-font-primary);
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 10px 20px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s var(--cb-animation-smooth),
+    color 0.3s var(--cb-animation-smooth), transform 0.2s ease-out;
+  min-width: 100px; /* Ensure buttons have some width */
+  text-align: center;
+}
+
+.cookie-banner-btn.accept {
+  background-color: var(--cb-color-button-accept-bg);
+  color: var(--cb-color-button-accept-text);
+}
+.cookie-banner-btn.accept:hover {
+  background-color: #e0e0e0; /* Slightly darker white */
+}
+
+.cookie-banner-btn.settings {
+  background-color: var(--cb-color-button-settings-bg);
+  color: var(--cb-color-button-settings-text);
+  border: 1.5px solid var(--cb-color-button-settings-border);
+}
+.cookie-banner-btn.settings:hover {
+  background-color: rgba(255, 255, 255, 0.1); /* Subtle hover for settings */
+  border-color: var(--cb-color-text-primary);
+}
+.cookie-banner-btn:active {
+  transform: scale(0.97);
+}
+
+@media (max-width: 480px) {
+  .cookie-banner {
+    width: 100%;
+    left: 0;
+    transform: translateX(0);
+    border-radius: 0; /* Full width on small screens */
+    padding: 20px;
+  }
+  .cookie-banner-actions {
+    flex-direction: column; /* Stack buttons */
+    gap: 10px;
+  }
+  .cookie-banner-btn {
+    width: 100%; /* Full width buttons */
+  }
+}

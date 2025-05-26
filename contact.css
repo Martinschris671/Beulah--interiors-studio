@@ -1,0 +1,201 @@
+:root {
+  --cs-font-primary: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --cs-color-black: #000000;
+  --cs-color-white: #ffffff;
+  --cs-color-text-secondary: #4a4a4a;
+  --cs-color-border: #dedede;
+  --cs-color-input-bg: var(--cs-color-white);
+  --cs-color-error: #d32f2f;
+  --cs-color-success: #388e3c;
+
+  /* Ultra Smooth Animation Properties */
+  --animation-ultra-smooth-curve: cubic-bezier(
+    0.23,
+    1,
+    0.32,
+    1
+  ); /* easeOutQuint */
+  --animation-ultra-smooth-duration: 1.2s; /* Slightly longer for a larger section reveal */
+  --animation-reveal-delay: 0.2s; /* Default delay for this section */
+
+  --cs-animation-springy: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.cs-section {
+  padding: 100px 40px;
+  min-height: 100vh;
+  background-color: var(--cs-color-white);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.cs-container {
+  /* This is our scroll-reveal target */
+  max-width: 700px;
+  width: 100%;
+  margin: 0 auto;
+  opacity: 0;
+  transform: translateY(40px); /* Slightly more travel for smoother effect */
+  /* Transition applied when .is-visible is added */
+}
+.cs-container.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity var(--animation-ultra-smooth-duration)
+      var(--animation-ultra-smooth-curve) var(--animation-reveal-delay),
+    transform var(--animation-ultra-smooth-duration)
+      var(--animation-ultra-smooth-curve) var(--animation-reveal-delay);
+}
+
+.cs-section-title {
+  font-size: clamp(2.2rem, 5vw, 3.2rem);
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 20px;
+  color: var(--cs-color-black);
+}
+.cs-section-subtitle {
+  font-size: clamp(1rem, 2.5vw, 1.15rem);
+  font-weight: 400;
+  text-align: center;
+  margin-bottom: 60px;
+  color: var(--cs-color-text-secondary);
+  max-width: 550px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
+}
+.cs-contact-form {
+  display: grid;
+  gap: 25px;
+}
+.cs-form-group {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+.cs-form-group label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin-bottom: 8px;
+  color: var(--cs-color-text-secondary);
+  display: block;
+}
+.cs-form-group input[type="text"],
+.cs-form-group input[type="email"],
+.cs-form-group textarea,
+.cs-form-group select {
+  font-family: var(--cs-font-primary);
+  font-size: 1rem;
+  padding: 14px 18px;
+  border: 1.5px solid var(--cs-color-border);
+  border-radius: 6px;
+  background-color: var(--cs-color-input-bg);
+  transition: border-color 0.3s, box-shadow 0.3s;
+  outline: none;
+  width: 100%;
+  color: var(--cs-color-black);
+}
+.cs-form-group select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%234A4A4A' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 18px center;
+  background-size: 12px;
+  padding-right: 40px;
+}
+.cs-form-group select:required:invalid {
+  color: var(--cs-color-text-secondary);
+}
+.cs-form-group input[type="text"]:focus,
+.cs-form-group input[type="email"]:focus,
+.cs-form-group textarea:focus,
+.cs-form-group select:focus {
+  border-color: var(--cs-color-black);
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.08);
+}
+.cs-form-group textarea {
+  min-height: 150px;
+  resize: vertical;
+}
+.cs-form-group input.invalid,
+.cs-form-group textarea.invalid,
+.cs-form-group select.invalid {
+  border-color: var(--cs-color-error) !important;
+}
+.form-error-message-unique {
+  font-size: 0.8rem;
+  color: var(--cs-color-error);
+  margin-top: 6px;
+  display: none;
+  font-weight: 500;
+}
+.form-error-message-unique.visible {
+  display: block;
+}
+.cs-submit-btn {
+  font-family: var(--cs-font-primary);
+  font-size: 1.05rem;
+  font-weight: 600;
+  padding: 15px 30px;
+  background-color: var(--cs-color-black);
+  color: var(--cs-color-white);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s var(--cs-animation-springy);
+  display: block;
+  width: auto;
+  margin: 20px auto 0;
+}
+.cs-submit-btn:hover {
+  background-color: #333;
+  transform: translateY(-3px);
+}
+.cs-submit-btn:active {
+  transform: translateY(0);
+}
+.form-status-message-unique {
+  margin-top: 20px;
+  padding: 12px 15px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  text-align: center;
+  display: none;
+  font-weight: 500;
+  line-height: 1.5;
+}
+.form-status-message-unique.visible {
+  display: block;
+}
+.form-status-message-unique.success {
+  background-color: #e8f5e9;
+  color: var(--cs-color-success);
+  border: 1px solid #c8e6c9;
+}
+.form-status-message-unique.error {
+  background-color: #ffebee;
+  color: var(--cs-color-error);
+  border: 1px solid #ffcdd2;
+}
+
+@media (max-width: 768px) {
+  .cs-section {
+    padding: 80px 20px;
+  }
+  .cs-section-title {
+    font-size: clamp(1.8rem, 7vw, 2.5rem);
+  }
+  .cs-section-subtitle {
+    font-size: clamp(0.95rem, 3.5vw, 1.05rem);
+    margin-bottom: 40px;
+  }
+  .cs-contact-form {
+    gap: 20px;
+  }
+}
