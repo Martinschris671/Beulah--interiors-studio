@@ -18,6 +18,7 @@
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="popup.css" />
     <link rel="stylesheet" href="case.css" />
     <link rel="stylesheet" href="hero.css" />
     <link rel="stylesheet" href="cookie.css" />
@@ -648,7 +649,7 @@
             <div class="po-project-content">
               <h3 class="po-project-title">Gourmet Chef's Kitchen</h3>
               <p class="po-project-tagline">Modern Apartment Renovation</p>
-              <a href="#project-detail-kitchen" class="po-view-case-study-btn"
+              <a href="#" class="po-view-case-study-btn trigger-feature-popup"
                 >View Case Study</a
               >
             </div>
@@ -662,7 +663,9 @@
             <div class="po-project-content">
               <h3 class="po-project-title">Urban Loft Conversion</h3>
               <p class="po-project-tagline">Industrial Space Reimagined</p>
-              <a href="#project-detail-loft" class="po-view-case-study-btn"
+              <a
+                href="#project-detail-loft"
+                class="po-view-case-study-btn trigger-feature-popup"
                 >View Case Study</a
               >
             </div>
@@ -679,7 +682,9 @@
             <div class="po-project-content">
               <h3 class="po-project-title">Minimalist Retreat</h3>
               <p class="po-project-tagline">Lakeside Cabin Design</p>
-              <a href="#project-detail-retreat" class="po-view-case-study-btn"
+              <a
+                href="#project-detail-retreat"
+                class="po-view-case-study-btn trigger-feature-popup"
                 >View Case Study</a
               >
             </div>
@@ -897,6 +902,28 @@
         </form>
       </div>
     </section>
+    <!-- THE OVERLAY POPUP HTML -->
+    <div
+      class="feature-overlay-popup"
+      id="featureOverlay"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="popupTitle"
+      aria-describedby="popupMessage"
+      tabindex="-1"
+    >
+      <div class="popup-dialog">
+        <div class="popup-icon">
+          <i class="fas fa-tools"></i>
+          <!-- Example Font Awesome Icon -->
+        </div>
+        <h2 class="popup-title" id="popupTitle">Coming Soon!</h2>
+        <p class="popup-message" id="popupMessage">
+          This feature is not yet implemented. We're working on it!
+        </p>
+        <button class="popup-close-btn" id="popupCloseBtn">Got It</button>
+      </div>
+    </div>
     <footer class="ft-footer-section">
       <div class="ft-footer-container">
         <div
@@ -1205,5 +1232,6 @@
     <script src="footer.js"></script>
     <script src="cookie.js"></script>
     <script src="case.js"></script>
+    <script src="popup.js"></script>
   </body>
 </html>

@@ -1,0 +1,128 @@
+:root {
+  --popup-font-primary: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --popup-color-overlay-bg: rgba(
+    0,
+    0,
+    0,
+    0.75
+  ); /* Dark, semi-transparent background */
+  --popup-color-content-bg: #ffffff;
+  --popup-color-text-primary: #1d1d1f; /* Dark grey for text */
+  --popup-color-text-secondary: #555555;
+  --popup-color-button-bg: #000000;
+  --popup-color-button-text: #ffffff;
+  --popup-color-button-hover-bg: #333333;
+  --popup-animation-curve-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --popup-animation-curve-dialog: cubic-bezier(
+    0.4,
+    0,
+    0.2,
+    1
+  ); /* For dialog entrance */
+}
+
+/* Prevents body scroll when overlay is active */
+body.popup-overlay-active {
+  overflow: hidden;
+}
+
+/* --- THE OVERLAY --- */
+.feature-overlay-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--popup-color-overlay-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000; /* Very high z-index */
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s var(--popup-animation-curve-smooth),
+    visibility 0s linear 0.4s; /* Delay visibility change */
+}
+
+.feature-overlay-popup.is-active {
+  opacity: 1;
+  visibility: visible;
+  transition-delay: 0s, 0s; /* Apply immediately when becoming active */
+}
+
+.popup-dialog {
+  background-color: var(--popup-color-content-bg);
+  padding: 35px 40px;
+  border-radius: 12px; /* Softer radius */
+  text-align: center;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25); /* More pronounced shadow */
+  max-width: 450px;
+  width: 90%;
+  transform: scale(0.9) translateY(10px);
+  opacity: 0;
+  transition: transform 0.4s var(--popup-animation-curve-dialog) 0.05s,
+    /* Slight delay after overlay fade */ opacity 0.4s
+      var(--popup-animation-curve-dialog) 0.05s;
+}
+
+.feature-overlay-popup.is-active .popup-dialog {
+  transform: scale(1) translateY(0);
+  opacity: 1;
+}
+
+.popup-icon {
+  /* Optional icon */
+  font-size: 2.5rem;
+  color: var(--popup-color-text-primary); /* Can be an accent color */
+  margin-bottom: 20px;
+  /* Example: using a simple text character, replace with SVG or Font Awesome */
+  /* content: '🚧'; */
+}
+/* Using Font Awesome example */
+.popup-icon .fas {
+  color: #333; /* Adjust if needed */
+}
+
+.popup-title {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--popup-color-text-primary);
+  margin-top: 0;
+  margin-bottom: 15px;
+}
+
+.popup-message {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--popup-color-text-secondary);
+  margin-bottom: 30px;
+}
+
+.popup-close-btn {
+  font-family: var(--popup-font-primary);
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 10px 25px;
+  background-color: var(--popup-color-button-bg);
+  color: var(--popup-color-button-text);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s var(--popup-animation-curve-smooth),
+    transform 0.2s ease-out;
+  min-width: 120px;
+}
+
+.popup-close-btn:hover {
+  background-color: var(--popup-color-button-hover-bg);
+  transform: translateY(-1px);
+}
+.popup-close-btn:active {
+  transform: translateY(0);
+}
+
+/* Example link to trigger the popup */
+.trigger-feature-popup {
+  cursor: pointer;
+  /* Add any other styling for your links/buttons */
+}
