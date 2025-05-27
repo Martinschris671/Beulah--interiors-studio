@@ -3,8 +3,8 @@
 document.addEventListener("DOMContentLoaded", () => {
   const contactForm = document.getElementById("contactForm");
   const formStatusMessage = document.getElementById("formStatusMessage");
-  const MY_EMAIL_ADDRESS = "monsurr671@gmail.com";
-  const YOUR_NAME_FOR_EMAIL = "OLUWOLE JOY TEMITOPE";
+  const MY_EMAIL_ADDRESS = "beulaheinteriorsstudio@gmail.com";
+  const YOUR_NAME_FOR_EMAIL = "BEULAHE INTERIORS STUDIO";
 
   function validateField(field) {
     /* ... (Your existing validation logic) ... */
