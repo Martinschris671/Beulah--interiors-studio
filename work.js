@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
       title: "Minimalist",
       description:
         "Simplicity, functionality, and serene spaces where less is profoundly more.",
-      image: "images/Minimalist.webp",
+      image: "images/minimalist.webp",
     },
     elegant: {
       title: "Elegant",
@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
       title: "Scandinavian",
       description:
         "Light-filled, functional, and effortlessly stylish, prioritizing comfort and natural elements.",
-      image: "images/Scandinavian.webp",
+      image: "images/scandinavian.webp",
     },
   };
   let currentActiveStyle = null;
