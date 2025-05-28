@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Luxury Interior Design Quote Inquiry</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+
+      :root {
+        --lqe-font-primary: "Inter", "Helvetica Neue", Helvetica, Arial,
+          sans-serif;
+        --lqe-color-background: #ffffff;
+        --lqe-color-text-primary: #000000;
+        --lqe-color-text-secondary: #333333;
+        --lqe-color-text-placeholder: #a0a0a0;
+        --lqe-color-border: #dcdcdc;
+        --lqe-color-accent: #000000;
+        --lqe-color-white: #ffffff; /* Added for clarity */
+        --lqe-color-input-bg: #fdfdfd;
+        --lqe-animation-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+        --lqe-animation-gentle: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      }
+
+      body,
+      html {
+        margin: 0;
+        padding: 0;
+        font-family: var(--lqe-font-primary);
+        background-color: #f0f0f0;
+        color: var(--lqe-color-text-primary);
+        overflow-x: hidden;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      .lqe-section {
+        padding: 5px 40px;
+        background-color: var(--lqe-color-background);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .lqe-container {
+        max-width: 750px;
+        width: 100%;
+        background-color: var(--lqe-color-background);
+        padding: 20px;
+      }
+
+      .lqe-title-area {
+        text-align: center;
+        margin-bottom: 50px;
+      }
+      .lqe-title {
+        font-size: clamp(1.8rem, 4vw, 2.5rem);
+        font-weight: 600;
+        margin-bottom: 10px;
+      }
+      .lqe-subtitle {
+        font-size: clamp(0.95rem, 2vw, 1.05rem);
+        color: var(--lqe-color-text-secondary);
+        line-height: 1.6;
+      }
+
+      .lqe-progress-bar-container {
+        width: 100%;
+        height: 6px;
+        background-color: #e0e0e0;
+        border-radius: 3px;
+        margin-bottom: 40px;
+        overflow: hidden;
+      }
+      .lqe-progress-bar {
+        width: 0%;
+        height: 100%;
+        background-color: var(--lqe-color-accent);
+        border-radius: 3px;
+        transition: width 0.5s var(--lqe-animation-gentle);
+      }
+
+      .lqe-form-step {
+        display: none;
+        animation: lqe-fadeInStep 0.6s var(--lqe-animation-gentle) forwards;
+      }
+      .lqe-form-step.lqe-active-step {
+        display: block;
+      }
+      @keyframes lqe-fadeInStep {
+        from {
+          opacity: 0;
+          transform: translateY(15px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .lqe-form-group {
+        margin-bottom: 30px;
+      }
+      .lqe-form-group label {
+        font-size: 0.9rem;
+        font-weight: 500;
+        display: block;
+        margin-bottom: 10px;
+        color: var(--lqe-color-text-primary);
+      }
+      .lqe-form-group input[type="text"],
+      .lqe-form-group input[type="email"],
+      .lqe-form-group input[type="tel"],
+      .lqe-form-group input[type="number"],
+      .lqe-form-group select,
+      .lqe-form-group textarea {
+        width: 100%;
+        padding: 14px 18px;
+        font-family: var(--lqe-font-primary);
+        font-size: 1rem;
+        border: 1.5px solid var(--lqe-color-border);
+        border-radius: 6px;
+        background-color: var(--lqe-color-input-bg);
+        color: var(--lqe-color-text-primary);
+        transition: border-color 0.3s, box-shadow 0.3s;
+        outline: none;
+      }
+      .lqe-form-group input::placeholder,
+      .lqe-form-group textarea::placeholder {
+        color: var(--lqe-color-text-placeholder);
+        opacity: 1;
+      }
+      .lqe-form-group input:focus,
+      .lqe-form-group input:focus-visible,
+      .lqe-form-group textarea:focus,
+      .lqe-form-group textarea:focus-visible,
+      .lqe-form-group select:focus,
+      .lqe-form-group select:focus-visible {
+        border-color: var(--lqe-color-accent);
+        box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.08);
+      }
+      .lqe-form-group textarea {
+        min-height: 120px;
+        resize: vertical;
+      }
+
+      .lqe-choice-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+      }
+      .lqe-choice-item {
+        display: block;
+        position: relative;
+      }
+      .lqe-choice-item input[type="radio"],
+      .lqe-choice-item input[type="checkbox"] {
+        opacity: 0;
+        position: absolute;
+        width: 1px;
+        height: 1px;
+      }
+
+      .lqe-choice-label {
+        display: inline-flex; /* Changed to inline-flex for easier alignment of pseudo-elements */
+        align-items: center; /* Vertically align text and pseudo-element */
+        padding: 12px 20px;
+        border: 1.5px solid var(--lqe-color-border);
+        border-radius: 6px;
+        font-size: 0.95rem;
+        cursor: pointer;
+        transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+        background-color: var(--lqe-color-input-bg);
+        position: relative; /* For pseudo-elements */
+        user-select: none; /* Prevent text selection on click */
+      }
+
+      /* --- REFINED ACTIVE STATE FOR RADIO/CHECKBOX --- */
+      .lqe-choice-item input:checked + .lqe-choice-label {
+        background-color: var(--lqe-color-accent);
+        color: var(--lqe-color-white);
+        border-color: var(--lqe-color-accent);
+        font-weight: 500;
+        padding-left: 35px; /* Make space for the indicator */
+      }
+
+      /* Common style for the indicator */
+      .lqe-choice-item input:checked + .lqe-choice-label::before {
+        content: "";
+        position: absolute;
+        left: 12px; /* Position from left */
+        top: 50%;
+        transform: translateY(-50%);
+        transition: all 0.2s var(--lqe-animation-gentle);
+      }
+
+      /* Specific style for RADIO button indicator (dot) */
+      .lqe-choice-item input[type="radio"]:checked + .lqe-choice-label::before {
+        width: 8px;
+        height: 8px;
+        background-color: var(--lqe-color-white);
+        border-radius: 50%;
+      }
+
+      /* Specific style for CHECKBOX indicator (tick) */
+      .lqe-choice-item
+        input[type="checkbox"]:checked
+        + .lqe-choice-label::before {
+        width: 5px; /* Width of the tick lines */
+        height: 10px; /* Height of the tick */
+        border: solid var(--lqe-color-white);
+        border-width: 0 2px 2px 0; /* Creates the L-shape for tick */
+        transform: translateY(-60%) rotate(45deg); /* Adjust vertical position and rotate */
+        /* left: 14px; /* Fine-tune left position for checkbox tick */
+      }
+      /* --- END OF REFINED ACTIVE STATE --- */
+
+      .lqe-choice-item input:focus-visible + .lqe-choice-label {
+        box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.08);
+      }
+
+      .lqe-budget-slider-wrapper {
+        margin-top: 10px;
+      }
+      .lqe-budget-slider-wrapper input[type="range"] {
+        width: 100%;
+        cursor: pointer;
+        accent-color: var(--lqe-color-accent);
+      }
+      .lqe-budget-value {
+        text-align: center;
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-top: 10px;
+        color: var(--lqe-color-accent);
+      }
+
+      .lqe-navigation-buttons {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 40px;
+      }
+      .lqe-btn {
+        font-family: var(--lqe-font-primary);
+        font-size: 1rem;
+        font-weight: 500;
+        padding: 12px 25px;
+        border: 1.5px solid var(--lqe-color-accent);
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background-color 0.3s, color 0.3s, transform 0.2s;
+        min-width: 120px;
+        text-align: center;
+      }
+      .lqe-btn-primary {
+        background-color: var(--lqe-color-accent);
+        color: var(--lqe-color-white);
+      }
+      .lqe-btn-primary:hover {
+        background-color: #333;
+        border-color: #333;
+        transform: translateY(-2px);
+      }
+      .lqe-btn-secondary {
+        background-color: transparent;
+        color: var(--lqe-color-accent);
+      }
+      .lqe-btn-secondary:hover {
+        background-color: rgba(0, 0, 0, 0.03);
+        transform: translateY(-2px);
+      }
+      .lqe-btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      .lqe-summary-area,
+      .lqe-result-message {
+        padding: 20px 0;
+        line-height: 1.7;
+      }
+      .lqe-summary-area h4 {
+        margin-top: 0;
+        margin-bottom: 15px;
+        font-size: 1.2rem;
+      }
+      .lqe-summary-area p {
+        margin-bottom: 8px;
+        font-size: 0.95rem;
+      }
+      .lqe-summary-area strong {
+        font-weight: 600;
+        color: var(--lqe-color-text-primary);
+      }
+
+      #lqeFormStatus {
+        margin-top: 20px;
+        text-align: center;
+        font-weight: 500;
+      }
+      #lqeFormStatus.success {
+        color: #388e3c;
+      }
+      #lqeFormStatus.error {
+        color: #d32f2f;
+      }
+
+      @media (max-width: 768px) {
+        .lqe-section {
+          padding: 5px 20px;
+        }
+        .lqe-container {
+          padding: 20px;
+        }
+        .lqe-title {
+          font-size: clamp(1.6rem, 5vw, 2.2rem);
+        }
+        .lqe-subtitle {
+          font-size: clamp(0.9rem, 3vw, 1rem);
+        }
+        .lqe-form-group label {
+          font-size: 0.85rem;
+        }
+        .lqe-choice-label {
+          padding: 10px 15px;
+          font-size: 0.9rem;
+        }
+        .lqe-choice-item input:checked + .lqe-choice-label {
+          padding-left: 30px;
+        } /* Adjust for smaller indicator */
+        .lqe-choice-item
+          input[type="radio"]:checked
+          + .lqe-choice-label::before {
+          width: 7px;
+          height: 7px;
+          left: 10px;
+        }
+        .lqe-choice-item
+          input[type="checkbox"]:checked
+          + .lqe-choice-label::before {
+          width: 4px;
+          height: 8px;
+          left: 12px;
+          border-width: 0 1.5px 1.5px 0;
+        }
+        .lqe-navigation-buttons {
+          flex-direction: column-reverse;
+          gap: 15px;
+        }
+        .lqe-btn {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <section class="lqe-section">
+      <div class="lqe-container">
+        <div class="lqe-title-area">
+          <h2 class="lqe-title">Luxury Interior Vision Estimator</h2>
+          <p class="lqe-subtitle">
+            Begin crafting your bespoke space. Tell us about your project, and
+            we'll initiate a personalized consultation to bring your vision to
+            life.
+          </p>
+        </div>
+
+        <div class="lqe-progress-bar-container">
+          <div class="lqe-progress-bar" id="lqeProgressBar"></div>
+        </div>
+
+        <form id="luxuryQuoteForm">
+          <!-- Step 1: Project Basics -->
+          <div class="lqe-form-step lqe-active-step" data-step="1">
+            <div class="lqe-form-group">
+              <label for="projectType"
+                >What type of space are we transforming?</label
+              >
+              <select id="projectType" name="projectType" required>
+                <option value="" disabled selected>
+                  Select project type...
+                </option>
+                <option value="Residential - Full Home">
+                  Residential - Full Home
+                </option>
+                <option value="Residential - Single Room">
+                  Residential - Single Room (e.g., Living, Bedroom)
+                </option>
+                <option value="Residential - Kitchen/Bath">
+                  Residential - Kitchen/Bathroom
+                </option>
+                <option value="Commercial - Office">Commercial - Office</option>
+                <option value="Commercial - Retail">Commercial - Retail</option>
+                <option value="Commercial - Hospitality">
+                  Commercial - Hospitality (e.g., Restaurant, Hotel Lobby)
+                </option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            <div class="lqe-form-group">
+              <label for="spaceSize"
+                >Approximate size of the area (sq. meters or sq. feet)?</label
+              >
+              <input
+                type="text"
+                id="spaceSize"
+                name="spaceSize"
+                placeholder="e.g., 150 sqm or 1600 sqft"
+                required
+              />
+            </div>
+            <div class="lqe-form-group">
+              <label>Desired Level of Luxury/Finish:</label>
+              <div class="lqe-choice-group">
+                <span class="lqe-choice-item">
+                  <input
+                    type="radio"
+                    id="luxuryHighEnd"
+                    name="luxuryLevel"
+                    value="High-End"
+                    checked
+                    required
+                  /><label for="luxuryHighEnd" class="lqe-choice-label"
+                    >High-End</label
+                  >
+                </span>
+                <span class="lqe-choice-item">
+                  <input
+                    type="radio"
+                    id="luxuryUltraLuxury"
+                    name="luxuryLevel"
+                    value="Ultra-Luxury"
+                  /><label for="luxuryUltraLuxury" class="lqe-choice-label"
+                    >Ultra-Luxury</label
+                  >
+                </span>
+                <span class="lqe-choice-item">
+                  <input
+                    type="radio"
+                    id="luxuryBespoke"
+                    name="luxuryLevel"
+                    value="Bespoke/Artisanal"
+                  /><label for="luxuryBespoke" class="lqe-choice-label"
+                    >Bespoke/Artisanal</label
+                  >
+                </span>
+              </div>
+            </div>
+            <div class="lqe-navigation-buttons">
+              <button
+                type="button"
+                class="lqe-btn lqe-btn-primary"
+                onclick="nextStep()"
+              >
+                Next: Style & Scope →
+              </button>
+            </div>
+          </div>
+
+          <!-- Step 2: Style & Scope -->
+          <div class="lqe-form-step" data-step="2">
+            <div class="lqe-form-group">
+              <label>Preferred Design Style(s) (Select all that apply):</label>
+              <div class="lqe-choice-group">
+                <span class="lqe-choice-item"
+                  ><input
+                    type="checkbox"
+                    id="styleMinimalist"
+                    name="designStyle"
+                    value="Minimalist"
+                  /><label for="styleMinimalist" class="lqe-choice-label"
+                    >Minimalist</label
+                  ></span
+                >
+                <span class="lqe-choice-item"
+                  ><input
+                    type="checkbox"
+                    id="styleElegant"
+                    name="designStyle"
+                    value="Elegant"
+                  /><label for="styleElegant" class="lqe-choice-label"
+                    >Elegant</label
+                  ></span
+                >
+                <span class="lqe-choice-item"
+                  ><input
+                    type="checkbox"
+                    id="styleModern"
+                    name="designStyle"
+                    value="Modern"
+                  /><label for="styleModern" class="lqe-choice-label"
+                    >Modern</label
+                  ></span
+                >
+                <span class="lqe-choice-item"
+                  ><input
+                    type="checkbox"
+                    id="styleClassy"
+                    name="designStyle"
+                    value="Classy/Classic"
+                  /><label for="styleClassy" class="lqe-choice-label"
+                    >Classy/Classic</label
+                  ></span
+                >
+                <span class="lqe-choice-item"
+                  ><input
+                    type="checkbox"
+                    id="styleScandinavian"
+                    name="designStyle"
+                    value="Scandinavian"
+                  /><label for="styleScandinavian" class="lqe-choice-label"
+                    >Scandinavian</label
+                  ></span
+                >
+                <span class="lqe-choice-item"
+                  ><input
+                    type="checkbox"
+                    id="styleEclectic"
+                    name="designStyle"
+                    value="Eclectic"
+                  /><label for="styleEclectic" class="lqe-choice-label"
+                    >Eclectic</label
+                  ></span
+                >
+              </div>
+            </div>
+            <div class="lqe-form-group">
+              <label for="projectScope"
+                >Briefly describe the scope of work (e.g., full renovation,
+                furnishing, styling):</label
+              >
+              <textarea
+                id="projectScope"
+                name="projectScope"
+                rows="4"
+                placeholder="e.g., Complete gut renovation including kitchen and bathrooms, plus all new furnishings."
+                required
+              ></textarea>
+            </div>
+            <div class="lqe-navigation-buttons">
+              <button
+                type="button"
+                class="lqe-btn lqe-btn-secondary"
+                onclick="prevStep()"
+              >
+                ← Back
+              </button>
+              <button
+                type="button"
+                class="lqe-btn lqe-btn-primary"
+                onclick="nextStep()"
+              >
+                Next: Budget & Contact →
+              </button>
+            </div>
+          </div>
+
+          <!-- Step 3: Budget & Contact -->
+          <div class="lqe-form-step" data-step="3">
+            <div class="lqe-form-group">
+              <label for="budgetRange"
+                >Anticipated Budget Range (USD - estimate is fine):</label
+              >
+              <div class="lqe-budget-slider-wrapper">
+                <input
+                  type="range"
+                  id="budgetRange"
+                  name="budgetRange"
+                  min="10000"
+                  max="1000000"
+                  step="5000"
+                  value="100000"
+                />
+              </div>
+              <div class="lqe-budget-value" id="budgetValueDisplay">
+                $100,000
+              </div>
+              <small
+                style="
+                  display: block;
+                  margin-top: 5px;
+                  font-size: 0.8rem;
+                  color: #777;
+                "
+                >This helps us understand the potential scale. Actual costs vary
+                greatly.</small
+              >
+            </div>
+            <div class="lqe-form-group">
+              <label for="contactName">Your Full Name</label>
+              <input type="text" id="contactName" name="contactName" required />
+            </div>
+            <div class="lqe-form-group">
+              <label for="contactEmail">Your Email Address</label>
+              <input
+                type="email"
+                id="contactEmail"
+                name="contactEmail"
+                required
+              />
+            </div>
+            <div class="lqe-form-group">
+              <label for="contactPhone">Your Phone Number (Optional)</label>
+              <input type="tel" id="contactPhone" name="contactPhone" />
+            </div>
+            <div class="lqe-navigation-buttons">
+              <button
+                type="button"
+                class="lqe-btn lqe-btn-secondary"
+                onclick="prevStep()"
+              >
+                ← Back
+              </button>
+              <button
+                type="button"
+                class="lqe-btn lqe-btn-primary"
+                onclick="nextStep()"
+              >
+                Review Inquiry →
+              </button>
+            </div>
+          </div>
+
+          <!-- Step 4: Summary & Submit -->
+          <div class="lqe-form-step" data-step="4">
+            <div class="lqe-summary-area" id="lqeSummary">
+              <h4>Please Review Your Inquiry</h4>
+              <!-- Summary will be populated by JS -->
+            </div>
+            <div class="lqe-navigation-buttons">
+              <button
+                type="button"
+                class="lqe-btn lqe-btn-secondary"
+                onclick="prevStep()"
+              >
+                ← Edit
+              </button>
+              <button type="submit" class="lqe-btn lqe-btn-primary">
+                Submit Inquiry
+              </button>
+            </div>
+          </div>
+        </form>
+        <div id="lqeFormStatus"></div>
+      </div>
+    </section>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const form = document.getElementById("luxuryQuoteForm");
+        const steps = Array.from(form.querySelectorAll(".lqe-form-step"));
+        const progressBar = document.getElementById("lqeProgressBar");
+        const budgetRange = document.getElementById("budgetRange");
+        const budgetValueDisplay =
+          document.getElementById("budgetValueDisplay");
+        const summaryArea = document.getElementById("lqeSummary");
+        const formStatus = document.getElementById("lqeFormStatus");
+
+        let currentStep = 0;
+        const totalSteps = steps.length;
+
+        // --- REPLACE WITH YOUR ACTUAL EMAIL AND NAME ---
+        const MY_EMAIL_ADDRESS = "beulaheinteriorsstudio@gmail.com";
+        const YOUR_NAME_FOR_EMAIL = "BEULAHE INTERIORS STUDIO";
+        // --- END OF REPLACEMENTS ---
+
+        function updateProgressBar() {
+          const progress = ((currentStep + 1) / totalSteps) * 100;
+          progressBar.style.width = `${progress}%`;
+        }
+
+        function showStep(stepIndex) {
+          steps.forEach((step, index) => {
+            step.classList.toggle("lqe-active-step", index === stepIndex);
+          });
+          currentStep = stepIndex;
+          updateProgressBar();
+        }
+
+        window.nextStep = function () {
+          // Expose to global scope for inline onclick
+          if (validateCurrentStep()) {
+            if (currentStep < totalSteps - 1) {
+              if (currentStep === totalSteps - 2) {
+                // If moving to summary step
+                generateSummary();
+              }
+              showStep(currentStep + 1);
+            }
+          }
+        };
+
+        window.prevStep = function () {
+          // Expose to global scope
+          if (currentStep > 0) {
+            showStep(currentStep - 1);
+          }
+        };
+
+        function validateCurrentStep() {
+          const currentStepElement = steps[currentStep];
+          const inputs = currentStepElement.querySelectorAll(
+            "input[required], select[required], textarea[required]"
+          );
+          let isValid = true;
+          inputs.forEach((input) => {
+            // Basic validation: just check if empty for this demo
+            // For production, use more robust validation from your contact form example
+            if (input.type === "radio" || input.type === "checkbox") {
+              const groupName = input.name;
+              if (
+                !currentStepElement.querySelector(
+                  `input[name="${groupName}"]:checked`
+                )
+              ) {
+                // You might want to add visual error indication here
+                isValid = false;
+              }
+            } else if (!input.value.trim()) {
+              input.style.borderColor = "var(--lqe-color-error, #D32F2F)"; // Use CSS var with fallback
+              isValid = false;
+            } else {
+              input.style.borderColor = "var(--lqe-color-border)";
+            }
+          });
+          if (!isValid) {
+            formStatus.textContent =
+              "Please fill in all required fields for this step.";
+            formStatus.className = "error";
+          } else {
+            formStatus.textContent = "";
+            formStatus.className = "";
+          }
+          return isValid;
+        }
+
+        if (budgetRange && budgetValueDisplay) {
+          budgetRange.addEventListener("input", (e) => {
+            budgetValueDisplay.textContent = `$${parseInt(
+              e.target.value
+            ).toLocaleString()}`;
+          });
+          // Initial display
+          budgetValueDisplay.textContent = `$${parseInt(
+            budgetRange.value
+          ).toLocaleString()}`;
+        }
+
+        function getSelectedCheckboxValues(name) {
+          const checkboxes = form.querySelectorAll(
+            `input[name="${name}"]:checked`
+          );
+          return (
+            Array.from(checkboxes)
+              .map((cb) => cb.value)
+              .join(", ") || "Not specified"
+          );
+        }
+
+        function generateSummary() {
+          const formData = new FormData(form);
+          let summaryHTML = "<h4>Please Review Your Inquiry</h4>";
+          summaryHTML += `<p><strong>Project Type:</strong> ${
+            formData.get("projectType") || "N/A"
+          }</p>`;
+          summaryHTML += `<p><strong>Approx. Size:</strong> ${
+            formData.get("spaceSize") || "N/A"
+          }</p>`;
+          summaryHTML += `<p><strong>Luxury Level:</strong> ${
+            formData.get("luxuryLevel") || "N/A"
+          }</p>`;
+          summaryHTML += `<p><strong>Design Style(s):</strong> ${getSelectedCheckboxValues(
+            "designStyle"
+          )}</p>`;
+          summaryHTML += `<p><strong>Project Scope:</strong> ${
+            formData.get("projectScope") || "N/A"
+          }</p>`;
+          summaryHTML += `<p><strong>Budget Range:</strong> $${
+            parseInt(formData.get("budgetRange")).toLocaleString() || "N/A"
+          }</p>`;
+          summaryHTML += `<p><strong>Name:</strong> ${
+            formData.get("contactName") || "N/A"
+          }</p>`;
+          summaryHTML += `<p><strong>Email:</strong> ${
+            formData.get("contactEmail") || "N/A"
+          }</p>`;
+          const phone = formData.get("contactPhone");
+          if (phone) summaryHTML += `<p><strong>Phone:</strong> ${phone}</p>`;
+          summaryArea.innerHTML = summaryHTML;
+        }
+
+        form.addEventListener("submit", function (e) {
+          e.preventDefault();
+          formStatus.textContent = "Preparing your inquiry...";
+          formStatus.className = "";
+
+          const formData = new FormData(form);
+          const name = formData.get("contactName");
+          const email = formData.get("contactEmail");
+          const projectType = formData.get("projectType");
+
+          let emailBody = `Hello ${YOUR_NAME_FOR_EMAIL},\n\nA new luxury interior design inquiry has been submitted:\n\n`;
+          emailBody += `Project Type: ${projectType}\n`;
+          emailBody += `Approx. Size: ${formData.get("spaceSize")}\n`;
+          emailBody += `Luxury Level: ${formData.get("luxuryLevel")}\n`;
+          emailBody += `Design Style(s): ${getSelectedCheckboxValues(
+            "designStyle"
+          )}\n`;
+          emailBody += `Project Scope:\n${formData.get("projectScope")}\n\n`;
+          emailBody += `Budget Range: $${parseInt(
+            formData.get("budgetRange")
+          ).toLocaleString()}\n\n`;
+          emailBody += `Contact Information:\n`;
+          emailBody += `Name: ${name}\n`;
+          emailBody += `Email: ${email}\n`;
+          const phone = formData.get("contactPhone");
+          if (phone) emailBody += `Phone: ${phone}\n`;
+          emailBody += `\nPlease follow up at your earliest convenience.\n\nBest regards,\nPortfolio Inquiry System`;
+
+          const subject = `Luxury Design Inquiry: ${projectType} - ${name}`;
+          const mailtoLink = `mailto:${MY_EMAIL_ADDRESS}?subject=${encodeURIComponent(
+            subject
+          )}&body=${encodeURIComponent(emailBody)}`;
+
+          try {
+            window.location.href = mailtoLink;
+            formStatus.textContent =
+              "Your email app should open. Please review and send the detailed inquiry!";
+            formStatus.className = "success";
+            setTimeout(() => {
+              form.reset();
+              showStep(0); // Reset to first step
+              budgetValueDisplay.textContent = `$${parseInt(
+                budgetRange.min
+              ).toLocaleString()}`; // Reset slider display
+              formStatus.textContent = "";
+              formStatus.className = "";
+            }, 7000);
+          } catch (err) {
+            console.error("Mailto error:", err);
+            formStatus.textContent =
+              "Could not open email app. Please copy the summary or contact us directly.";
+            formStatus.className = "error";
+          }
+        });
+
+        // Initialize
+        showStep(0);
+      });
+    </script>
+  </body>
+</html>
