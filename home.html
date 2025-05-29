@@ -18,6 +18,7 @@
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="faq.css" />
     <link rel="stylesheet" href="popup.css" />
     <link rel="stylesheet" href="case.css" />
     <link rel="stylesheet" href="hero.css" />
@@ -902,6 +903,156 @@
         </form>
       </div>
     </section>
+    <section class="faq-section">
+      <div class="faq-container">
+        <h2
+          class="faq-section-title faq-reveal-on-scroll faq-title-reveal"
+          id="faqTitle"
+          data-reveal-delay="0"
+        >
+          Frequently Asked Questions
+        </h2>
+
+        <div class="faq-list">
+          <div
+            class="faq-item faq-reveal-on-scroll faq-item-reveal"
+            data-reveal-delay="100"
+          >
+            <!-- data-reveal-delay for JS -->
+            <button
+              class="faq-question-button"
+              aria-expanded="false"
+              aria-controls="faq-answer-1"
+              id="faq-question-1"
+            >
+              <span class="faq-question-text"
+                >What is the typical duration for a full interior design
+                project?</span
+              >
+              <span class="faq-icon" aria-hidden="true"></span>
+            </button>
+            <div
+              class="faq-answer-content"
+              id="faq-answer-1"
+              role="region"
+              aria-labelledby="faq-question-1"
+            >
+              <div class="faq-answer-text">
+                <p>
+                  Project durations vary significantly based on scope,
+                  complexity, and client involvement. A small room refresh might
+                  take a few weeks, while a full home renovation or new build
+                  can range from several months to over a year. We provide a
+                  detailed timeline after the initial discovery and concept
+                  phases.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="faq-item faq-reveal-on-scroll faq-item-reveal"
+            data-reveal-delay="170"
+          >
+            <!-- Staggered delay -->
+            <button
+              class="faq-question-button"
+              aria-expanded="false"
+              aria-controls="faq-answer-2"
+              id="faq-question-2"
+            >
+              <span class="faq-question-text"
+                >How do you define your design style?</span
+              >
+              <span class="faq-icon" aria-hidden="true"></span>
+            </button>
+            <div
+              class="faq-answer-content"
+              id="faq-answer-2"
+              role="region"
+              aria-labelledby="faq-question-2"
+            >
+              <div class="faq-answer-text">
+                <p>
+                  Our signature style is rooted in sophisticated minimalism and
+                  timeless elegance. We believe in creating spaces that are both
+                  highly functional and deeply personal, characterized by clean
+                  lines, quality materials, curated details, and a harmonious
+                  balance of light and texture. However, our primary goal is to
+                  interpret and elevate your unique vision.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="faq-item faq-reveal-on-scroll faq-item-reveal"
+            data-reveal-delay="240"
+          >
+            <button
+              class="faq-question-button"
+              aria-expanded="false"
+              aria-controls="faq-answer-3"
+              id="faq-question-3"
+            >
+              <span class="faq-question-text"
+                >Can you work with existing furniture or architectural
+                elements?</span
+              >
+              <span class="faq-icon" aria-hidden="true"></span>
+            </button>
+            <div
+              class="faq-answer-content"
+              id="faq-answer-3"
+              role="region"
+              aria-labelledby="faq-question-3"
+            >
+              <div class="faq-answer-text">
+                <p>
+                  Absolutely. We excel at integrating cherished existing pieces
+                  or architectural features into new designs. Our process
+                  involves understanding what elements hold significance for you
+                  and thoughtfully incorporating them to create a cohesive and
+                  meaningful space that honors both past and present.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="faq-item faq-reveal-on-scroll faq-item-reveal"
+            data-reveal-delay="310"
+          >
+            <button
+              class="faq-question-button"
+              aria-expanded="false"
+              aria-controls="faq-answer-4"
+              id="faq-question-4"
+            >
+              <span class="faq-question-text">What is your fee structure?</span>
+              <span class="faq-icon" aria-hidden="true"></span>
+            </button>
+            <div
+              class="faq-answer-content"
+              id="faq-answer-4"
+              role="region"
+              aria-labelledby="faq-question-4"
+            >
+              <div class="faq-answer-text">
+                <p>
+                  Our fee structure is tailored to the specific scope and
+                  requirements of each project. Typically, this can involve a
+                  combination of a fixed design fee for conceptual and detailed
+                  design phases, and potentially a percentage-based fee for
+                  procurement and project management. We provide a transparent
+                  and detailed proposal after our initial consultation.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <!-- THE OVERLAY POPUP HTML -->
     <div
@@ -1234,5 +1385,6 @@
     <script src="cookie.js"></script>
     <script src="case.js"></script>
     <script src="popup.js"></script>
+    <script src="faq.js"></script>
   </body>
 </html>
