@@ -266,91 +266,6 @@
           scroll-margin-top: var(--nav-height-desktop);
         }
       }
-      :root {
-        --gq-font-primary: "Inter", "Helvetica Neue", Helvetica, Arial,
-          sans-serif;
-        --gq-button-bg: #000000;
-        --gq-button-text-color: #ffffff;
-        --gq-button-hover-bg: #1a1a1a;
-        --gq-animation-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        --gq-animation-gentle-bob: cubic-bezier(0.455, 0.03, 0.515, 0.955);
-      }
-
-      .gq-fixed-button-bottom-left {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        background-color: var(--gq-button-bg);
-        color: var(--gq-button-text-color);
-        padding: 12px 25px;
-        text-decoration: none;
-        font-size: clamp(0.9rem, 2.2vw, 1rem);
-        font-weight: 600;
-        letter-spacing: 0.3px;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        border-top-right-radius: 6px;
-        box-shadow: 0 -3px 10px rgba(0, 0, 0, 0.1);
-        z-index: 1000;
-        transition: background-color 0.3s var(--gq-animation-smooth),
-          transform 0.3s var(--gq-animation-smooth),
-          box-shadow 0.3s var(--gq-animation-smooth);
-        opacity: 0;
-        transform: translateY(100%);
-        animation: gq-button-slide-up 0.6s var(--gq-animation-smooth) 0.7s
-          forwards;
-      }
-
-      @keyframes gq-button-slide-up {
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-
-      .gq-fixed-button-bottom-left:hover {
-        background-color: var(--gq-button-hover-bg);
-        box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.15);
-      }
-
-      .gq-fixed-button-bottom-left:active {
-        box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.12);
-      }
-
-      .gq-button-text {
-        /* Optional: if you need to style text part specifically */
-      }
-
-      /* UPDATED: Font Awesome Caret Styling */
-      .gq-caret-icon {
-        margin-left: 10px;
-        font-size: 0.8em; /* Adjust size relative to button font size */
-        line-height: 1; /* Ensure it doesn't affect button height */
-        display: inline-block;
-        animation: gq-caret-bob 1.5s var(--gq-animation-gentle-bob) infinite
-          alternate;
-        animation-delay: 1.5s;
-      }
-
-      @keyframes gq-caret-bob {
-        0% {
-          transform: translateY(0);
-          opacity: 0.7;
-        }
-        50% {
-          transform: translateY(-3px);
-          opacity: 1;
-        }
-        100% {
-          transform: translateY(0);
-          opacity: 0.7;
-        }
-      }
-
-      .gq-fixed-button-bottom-left:hover .gq-caret-icon {
-        animation-play-state: paused;
-      }
     </style>
   </head>
   <body>
@@ -987,11 +902,7 @@
         </form>
       </div>
     </section>
-    <a href="quote.html" class="gq-fixed-button-bottom-left">
-      <span class="gq-button-text">Get quote</span>
-      <!-- UPDATED: Using Font Awesome icon -->
-      <i class="fas fa-chevron-up gq-caret-icon"></i>
-    </a>
+
     <!-- THE OVERLAY POPUP HTML -->
     <div
       class="feature-overlay-popup"
